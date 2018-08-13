@@ -1,0 +1,9 @@
+<div class="editor" [class.vertical]="appService.isVertical()" [class.horizontal]="appService.isHorizontal()"
+    (click)="editorClick($event);">
+    <app-block *ngFor="let block of editorService.blocks; let i = index"
+        [object]="block" [index]="i"></app-block>
+    <div id="pointer"
+        *ngIf="focus && !pointedIsDiminutive"
+        [style.top]="pointerPositionCss.top"
+        [style.left]="pointerPositionCss.left"></div>
+</div>

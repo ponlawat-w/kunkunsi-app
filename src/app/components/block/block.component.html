@@ -1,0 +1,14 @@
+<div class="block"
+    [class]="blockClass"
+    [attr.data-index]="index"
+    (click)="editorService.pointer = index">
+    <div class="lyric">
+        {{object.lyric ? object.lyric : '&nbsp;'}}
+    </div>
+    <div class="note">
+        {{object.toString()}}
+        <div *ngIf="object.mark" class="note-mark">
+            {{object.mark}}
+        </div>
+    </div>
+</div>

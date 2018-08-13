@@ -1,0 +1,3 @@
+.edit-form.vertical, .edit-form.vertical * {
+    writing-mode: horizontal-tb;
+}

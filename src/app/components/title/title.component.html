@@ -1,0 +1,13 @@
+<h1 *ngIf="!editing">
+  {{editorService.title}}
+  <button class="btn btn-sm btn-info" (click)="toggleEditing();">編集</button>
+</h1>
+<div *ngIf="editing" class="edit-form" [class.vertical]="appService.isVertical()">
+  <form (ngSubmit)="submitTitle();">
+    <input type="text" class="form-control" [(ngModel)]="newTitle" name="newTitle" placeholder="タイトルを入れてください。">
+    <div class="text-right">
+      <button type="button" (click)="toggleEditing();" class="btn btn-dark">キャンセル</button>
+      <button type="submit" class="btn btn-success">編集</button>
+    </div>
+  </form>
+</div>

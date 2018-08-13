@@ -1,0 +1,54 @@
+.block.block-note.vertical .note {
+    width: 44px;
+    height: 80px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-multi {
+    height: 40px;
+}
+
+.block.block-note.vertical.block-first .note {
+    border-top-width: 3px;
+}
+
+.block.block-note.vertical.block-last .note {
+    border-bottom-width: 3px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-multi .note {
+    padding-right: 7px;
+    height: 40px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-single {
+    padding-top: 15px;  
+    padding-left: 47px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-single .note-mark {
+    top: 15px;
+    left: 22px;
+}
+
+.block.block-note.vertical.next-single-dim .note {
+    border-bottom-color: #ededed;
+    padding-bottom: 15px;
+}
+
+.block.block-note.vertical.prev-single-dim .note {
+    border-top-color: #ededed;
+    padding-top: 15px;
+}
+
+.block.block-note.vertical .note-mark {
+    top: 6px;
+    left: 9px;
+}
+
+.block.block-note.vertical .lyric {
+    border-right: 1px solid #e5e5e5;
+}
+
+.block.block-newline.empty-line.vertical {
+    width: 69px;
+}

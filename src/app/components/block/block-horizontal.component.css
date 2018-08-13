@@ -1,0 +1,45 @@
+.block.block-note.horizontal .note {
+    width: 80px;
+    height: 44px;
+}
+
+.block.block-note.horizontal.block-first .note {
+    border-left-width: 3px;
+}
+
+.block.block-note.horizontal.block-last .note {
+    border-right-width: 3px;
+}
+
+.block.block-note.horizontal.diminutive.diminutive-single {
+    margin-top: 18px;
+    margin-left: -40px;
+}
+
+.block.block-note.horizontal.diminutive.diminutive-single .note-mark {
+    top: -5px;
+    right: 19px;
+}
+
+.block.block-note.horizontal.next-single-dim .note {
+    border-right-color: #ededed;
+    padding-right: 15px;
+}
+
+.block.block-note.horizontal.prev-single-dim .note {
+    border-left-color: #ededed;
+    padding-left: 15px;
+}
+
+.block.block-note.horizontal .note-mark {
+    top: -5px;
+    right: 6px;
+}
+
+.block.block-note.horizontal .lyric {
+    border-top: 1px solid #e5e5e5;
+}
+
+.block.block-newline.empty-line.horizontal {
+    height: 69px;
+}

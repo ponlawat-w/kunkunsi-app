@@ -1,0 +1,34 @@
+.editor {
+    border: 1px solid #ededed;
+}
+
+#pointer {
+    position: absolute;
+    background-color: #0000ff;
+    z-index: 1000;
+    animation: pointer 800ms steps(2, start) infinite;
+}
+
+.editor.vertical {
+    min-width: 83px;
+}
+
+.editor.vertical #pointer {
+    height: 2px;
+    width: 60px;
+}
+
+.editor.horizontal {
+    min-height: 77px;
+}
+
+.editor.horizontal #pointer {
+    width: 2px;
+    height: 68px;
+}
+
+@keyframes pointer {
+    to {
+        visibility: hidden;
+    }
+}

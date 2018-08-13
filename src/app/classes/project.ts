@@ -1,0 +1,146 @@
+import { Block } from './block';
+import { Note } from './note';
+import { NoteSymbol } from './note-symbol';
+import { SpecialNote, GeneralNote } from '../enums/note';
+
+const symbolWithOwnBlock = [
+    SpecialNote.ArrowRepeatBegin,
+    SpecialNote.ArrowRepeatEnd,
+    SpecialNote.CircleRepeatBegin,
+    SpecialNote.CircleRepeatEnd,
+    SpecialNote.NewLine
+];
+
+const WORK_BREAK = [
+  GeneralNote.Space,
+  SpecialNote.ArrowRepeatBegin,
+  SpecialNote.ArrowRepeatEnd,
+  SpecialNote.CircleRepeatBegin,
+  SpecialNote.CircleRepeatEnd,
+  SpecialNote.End,
+  SpecialNote.NewLine
+];
+
+const LINE_BREAK = [
+  SpecialNote.End,
+  SpecialNote.NewLine
+];
+
+export class Project {
+    public title: string;
+    public blocks: Block[];
+
+    constructor() {
+        this.title = '';
+        this.blocks = [];
+    }
+
+    public isWordBreak(index: number): boolean {
+      return this.validIndex(index) ? WORK_BREAK.indexOf(this.blocks[index].kunkunsi.value) > -1 : true;
+    }
+
+    public isLineBreak(index: number): boolean {
+      return this.validIndex(index) ? LINE_BREAK.indexOf(this.blocks[index].kunkunsi.value) > -1 : true;
+    }
+
+    private insertBlock(block: Block, index = -1): void {
+        if (index < 0 || index === this.blocks.length) {
+            this.blocks.push(block);
+            return;
+        }
+
+        if (this.validIndex(index)) {
+            this.blocks.splice(index, 0, block);
+        }
+    }
+
+    public validIndex(index: number) {
+        return index > -1 && index < this.blocks.length;
+    }
+
+    public previousWordBreakIndexFrom(index: number): number {
+        do {
+            index--;
+        } while (!this.isWordBreak(index));
+
+        return this.validIndex(index) ? index : 0;
+    }
+
+    public nextWordBreakIndexFrom(index: number): number {
+        do {
+            index++;
+        } while (!this.isWordBreak(index));
+
+        return this.validIndex(index) ? index : this.blocks.length;
+    }
+
+    public previousLineBreakIndexFrom(index: number): number {
+        do {
+            index--;
+        } while (!this.isLineBreak(index));
+
+        return this.validIndex(index) ? index : 0;
+    }
+
+    public nextLineBreakIndexFrom(index: number): number {
+        do {
+            index++;
+        } while (!this.isLineBreak(index));
+
+        return this.validIndex(index) ? index : this.blocks.length;
+    }
+
+    public insertNote(note: Note, index = -1): void {
+        this.insertBlock(new Block(note), index);
+    }
+
+    public insertSymbol(symbol: NoteSymbol, index = -1): void {
+        if (symbolWithOwnBlock.indexOf(symbol.value) > -1) {
+            this.insertBlock(new Block(symbol), index);
+        }
+    }
+
+    public deleteOne(index: number): void {
+        if (this.validIndex(index)) {
+            this.blocks.splice(index, 1);
+        }
+    }
+
+    public deleteCount(index: number, count: number): void {
+        if (this.validIndex(index)) {
+            this.blocks.splice(index, count);
+        }
+    }
+
+    public deleteSpan(from: number, to: number): void {
+        if (this.validIndex(from) && to >= from) {
+            this.blocks.splice(from, to - from);
+        }
+    }
+
+    public clear() {
+        this.title = '';
+        this.blocks = [];
+    }
+
+    public isEmptyLine(index: number): boolean {
+        return this.isLineBreak(index) && this.isLineBreak(index + 1);
+    }
+
+    public isDiminutive(index: number): boolean {
+        if (!this.validIndex(index)) {
+            return false;
+        }
+        return (this.blocks[index].kunkunsi instanceof Note) ? (this.blocks[index].kunkunsi as Note).isDiminutive() : false;
+    }
+
+    public isSingleDiminutive(index: number): boolean {
+        return this.validIndex(index) && this.isDiminutive(index)
+            && (this.validIndex(index - 1) && !this.isDiminutive(index - 1))
+            && (this.validIndex(index + 1) && !this.isDiminutive(index + 1));
+    }
+
+    public isMultiDiminutive(index: number): boolean {
+        return this.isDiminutive(index) && !this.isSingleDiminutive(index);
+    }
+}

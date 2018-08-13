@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+  <a class="navbar-brand" href="#">My工工四</a>
+
+  <div class="navbar-brand">
+    <div class="btn-group">
+      <button class="btn" [class.btn-primary]="appService.isVertical()" (click)="setVertical();">縦書</button>
+      <button class="btn" [class.btn-primary]="appService.isHorizontal()" (click)="setHorizontal();">横書</button>
+    </div>
+  </div>
+</nav>

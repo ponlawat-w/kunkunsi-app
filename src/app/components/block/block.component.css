@@ -1,0 +1,50 @@
+.block.block-newline {
+    display: table;
+}
+
+.block.block-note {
+    display: inline-block;
+}
+
+.block.block-note .lyric {
+    text-align: center;
+    overflow: hidden;
+}
+
+.block.block-note .note {
+    position: relative;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 28px;
+    overflow: hidden;
+}
+
+.block.block-note.diminutive .note {
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+.block.block-note.diminutive.diminutive-single {
+    position: absolute;
+    z-index: 100;
+}
+
+.block.block-note.block.block-note.diminutive.diminutive-single .lyric {
+    border: none;
+}
+
+.block.block-note.next-single-dim .note, .block.block-note.prev-single-dim .note {
+    font-size: 24px;
+}
+
+.block.block-note.diminutive.diminutive-single.diminutive-single-pointed .note {
+    background-color: rgba(0, 0, 255, 0.25);
+}
+
+.block.block-note.diminutive.diminutive-single * {
+    border: none;
+}
+
+.block.block-note .note-mark {
+    position: absolute;
+}

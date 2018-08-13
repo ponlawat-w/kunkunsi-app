@@ -1,0 +1,7 @@
+<div id="body" class="body"
+    [class.vertical]="appService.isVertical()"
+    [class.horizontal]="appService.isHorizontal()"
+    (wheel)="onWheel($event);">
+    <app-title></app-title>
+    <app-editor tabindex="0"></app-editor>
+</div>
