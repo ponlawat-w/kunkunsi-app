@@ -1,14 +1,29 @@
-<div class="block"
+<div *ngIf="!markSrc"
     [class]="blockClass"
     [attr.data-index]="index"
-    (click)="editorService.pointer = index">
-    <div class="lyric">
+    (click)="editorService.pointer = index;">
+    <div class="lyric" *ngIf="object.block"
+        [class.lyric-editing]="lyricBeingEdited"
+        (click)="editorService.editLyricStart(index);">
         {{object.lyric ? object.lyric : '&nbsp;'}}
     </div>
-    <div class="note">
+    <app-lyric-edit *ngIf="object.block && lyricBeingEdited">
+    </app-lyric-edit>
+    <div class="note" *ngIf="object.block">
         {{object.toString()}}
         <div *ngIf="object.mark" class="note-mark">
             {{object.mark}}
         </div>
+        <div *ngIf="object.shift" class="note-shift">
+            {{object.shift}}
+        </div>
+    </div>
+</div>
+<div *ngIf="markSrc"
+    [class]="blockClass"
+    [attr.data-index]="index"
+    (click)="editorService.pointer = index;">
+    <div class="img-container">
+        <img *ngIf="markSrc" [src]="markSrc">
     </div>
 </div>

@@ -12,3 +12,19 @@
 p {
     font-size: 36px;
 }
+
+@media print {
+    .body, .body.vertical {
+        display: block;
+        position: absolute;
+        top: 2px;
+        bottom: 2px;
+        right: 0px;
+        left: 0px;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        overflow-y: visible;
+        overflow-x: visible;
+    }
+}

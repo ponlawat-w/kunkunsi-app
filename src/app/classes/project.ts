@@ -11,7 +11,7 @@ const symbolWithOwnBlock = [
     SpecialNote.NewLine
 ];
 
-const WORK_BREAK = [
+const WORD_BREAK = [
   GeneralNote.Space,
   SpecialNote.ArrowRepeatBegin,
   SpecialNote.ArrowRepeatEnd,
@@ -26,6 +26,13 @@ const LINE_BREAK = [
   SpecialNote.NewLine
 ];
 
+const MARK = [
+    SpecialNote.ArrowRepeatBegin,
+    SpecialNote.ArrowRepeatEnd,
+    SpecialNote.CircleRepeatBegin,
+    SpecialNote.CircleRepeatEnd
+];
+
 export class Project {
     public title: string;
     public blocks: Block[];
@@ -36,11 +43,15 @@ export class Project {
     }
 
     public isWordBreak(index: number): boolean {
-      return this.validIndex(index) ? WORK_BREAK.indexOf(this.blocks[index].kunkunsi.value) > -1 : true;
+      return this.validIndex(index) ? WORD_BREAK.indexOf(this.blocks[index].kunkunsi.value) > -1 : true;
     }
 
     public isLineBreak(index: number): boolean {
       return this.validIndex(index) ? LINE_BREAK.indexOf(this.blocks[index].kunkunsi.value) > -1 : true;
+    }
+
+    public isMark(index: number): boolean {
+        return this.validIndex(index) ? MARK.indexOf(this.blocks[index].kunkunsi.value) > -1 : false;
     }
 
     private insertBlock(block: Block, index = -1): void {
@@ -127,6 +138,21 @@ export class Project {
         return this.isLineBreak(index) && this.isLineBreak(index + 1);
     }
 
+    public isEmptyLineTrimmed(index: number): boolean {
+        if (!this.validIndex(index)) {
+            return true;
+        }
+        const prev = this.previousLineBreakIndexFrom(index);
+        const next = this.nextLineBreakIndexFrom(index);
+        for (let i = prev; i < next; i++) {
+            if (!this.isWordBreak(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public isDiminutive(index: number): boolean {
         if (!this.validIndex(index)) {
             return false;
@@ -142,5 +168,17 @@ export class Project {
 
     public isMultiDiminutive(index: number): boolean {
         return this.isDiminutive(index) && !this.isSingleDiminutive(index);
+    }
+
+    public isNote(index: number): boolean {
+        return this.validIndex(index) ? Note.isValidNote(this.blocks[index].kunkunsi.value) : false;
+    }
+
+    public isSpace(index: number): boolean {
+        return this.validIndex(index) ? this.blocks[index].kunkunsi.value === GeneralNote.Space : false;
+    }
+
+    public lyricable(index: number): boolean {
+        return this.validIndex(index) ? this.isNote(index) || this.isSpace(index) : false;
     }
 }

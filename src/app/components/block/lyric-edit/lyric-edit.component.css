@@ -1,0 +1,8 @@
+.lyric-edit-container {
+    position: relative;
+}
+
+.lyric-edit-container form {
+    position: absolute;
+    z-index: 500;
+}

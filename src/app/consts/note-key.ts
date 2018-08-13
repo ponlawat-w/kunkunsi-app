@@ -1,3 +1,5 @@
+import { SpecialNote } from '../enums/note';
+
 export const NOTE_KEY = {
     QWERTY: {
         'z': 0b00001000,
@@ -18,6 +20,15 @@ export const NOTE_KEY = {
     }
 };
 
+export const SPECIAL_KEY = {
+    QWERTY: {
+        '[': SpecialNote.ArrowRepeatBegin,
+        ']': SpecialNote.ArrowRepeatEnd,
+        '{': SpecialNote.CircleRepeatBegin,
+        '}': SpecialNote.CircleRepeatEnd
+    }
+};
+
 export const KEY_CODE = {
     SPACEBAR: 32,
     DELETE: 46,
@@ -32,5 +43,7 @@ export const KEY_CODE = {
     PAGEDOWN: 34,
     END: 35,
     SHIFT: 16,
-    ALT: 18
+    ALT: 18,
+    ESC: 27,
+    TAB: 9
 };

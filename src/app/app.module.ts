@@ -8,6 +8,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TitleComponent } from './components/title/title.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { BlockComponent } from './components/block/block.component';
+import { LyricEditComponent } from './components/block/lyric-edit/lyric-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BlockComponent } from './components/block/block.component';
     BodyComponent,
     TitleComponent,
     EditorComponent,
-    BlockComponent
+    BlockComponent,
+    LyricEditComponent
   ],
   imports: [
     BrowserModule,

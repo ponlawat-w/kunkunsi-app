@@ -1,10 +1,33 @@
-<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand fixed-top navbar-light bg-light no-print">
   <a class="navbar-brand" href="#">My工工四</a>
 
-  <div class="navbar-brand">
-    <div class="btn-group">
-      <button class="btn" [class.btn-primary]="appService.isVertical()" (click)="setVertical();">縦書</button>
-      <button class="btn" [class.btn-primary]="appService.isHorizontal()" (click)="setHorizontal();">横書</button>
-    </div>
-  </div>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <button class="btn btn-outline-success" (click)="newProject();">
+        新規
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-outline-primary" (click)="fileService.load();">
+        ＰＣから読込
+      </button>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <div class="btn-group btn-group-sm">
+        <button class="btn" [class.btn-primary]="appService.isVertical()" (click)="setVertical();">縦書</button>
+        <button class="btn" [class.btn-primary]="appService.isHorizontal()" (click)="setHorizontal();">横書</button>
+      </div>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-sm btn-info" (click)="print();">印刷</button>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-success" (click)="fileService.save();">
+        保存
+      </button>
+    </li>
+  </ul>
 </nav>

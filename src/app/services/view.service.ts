@@ -9,6 +9,10 @@ export class ViewService {
   constructor(public appService: AppService) {
   }
 
+  public get editorElement(): HTMLElement {
+    return document.getElementById('editor');
+  }
+
   public get bodyElement(): HTMLElement {
     if (this.appService.isHorizontal()) {
       return document.documentElement;
@@ -33,7 +37,6 @@ export class ViewService {
     } else if (this.appService.isHorizontal()) {
       const boundTop = this.bodyElement.scrollTop + 70;
       const boundBottom = boundTop + this.bodyElement.clientHeight - 250;
-      console.log(`${boundTop} ${top} ${boundBottom}`);
       return top > boundTop && top < boundBottom;
     }
 
@@ -65,5 +68,9 @@ export class ViewService {
       top: this.pointerElement.offsetTop,
       left: this.pointerElement.offsetLeft
     });
+  }
+
+  public getBlock(index: number): HTMLElement {
+    return document.querySelector(`.editor .block[data-index="${index}"]`);
   }
 }

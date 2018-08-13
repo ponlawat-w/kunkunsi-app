@@ -1,5 +1,5 @@
 import { KunKunSiByte } from './kunkunsi-byte';
-import { NoteMark, NoteShift } from '../enums/note';
+import { NoteMark, NoteShift, SpecialNote, GeneralNote } from '../enums/note';
 
 const NOTE_STRING = {
     0b00000: '〇',
@@ -24,6 +24,10 @@ export class Note extends KunKunSiByte {
 
     public shift: NoteShift = NoteShift.None;
 
+    public static isSpace(byteValue: number): boolean {
+        return byteValue === GeneralNote.Space;
+    }
+
     public static isValidNote(byteValue: number): boolean {
         if (byteValue >> 6 === 0b11) {
             return false;
@@ -32,6 +36,8 @@ export class Note extends KunKunSiByte {
         if (!(byteValue & 0b00011000)) {
             return false;
         }
+
+        return true;
     }
 
     public toggleDiminutive(): void {
@@ -76,6 +82,17 @@ export class Note extends KunKunSiByte {
                 return '`';
             case NoteMark.Swing:
                 return '⌝';
+        }
+
+        return null;
+    }
+
+    public toShift(): string {
+        if (this.shift === NoteShift.Sharp) {
+            return '♯';
+        }
+        if (this.shift === NoteShift.Flat) {
+            return '♭';
         }
 
         return null;

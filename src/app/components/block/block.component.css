@@ -1,3 +1,7 @@
+.block {
+    position: relative;
+}
+
 .block.block-newline {
     display: table;
 }
@@ -8,7 +12,12 @@
 
 .block.block-note .lyric {
     text-align: center;
-    overflow: hidden;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.block.block-note .lyric.lyric-editing {
+    background-color: #e5e5e5;
 }
 
 .block.block-note .note {
@@ -24,13 +33,23 @@
     font-size: 18px;
 }
 
+.block.block-note.diminutive .lyric {
+    font-size: 14px;
+}
+
 .block.block-note.diminutive.diminutive-single {
-    position: absolute;
+    position: relative;
+    height: 0;
     z-index: 100;
 }
 
-.block.block-note.block.block-note.diminutive.diminutive-single .lyric {
+.block.block-note.diminutive.diminutive-single .lyric {
     border: none;
+    position: absolute;
+}
+
+.block.block-note.diminutive.diminutive-single .note {
+    position: absolute;
 }
 
 .block.block-note.next-single-dim .note, .block.block-note.prev-single-dim .note {
@@ -47,4 +66,24 @@
 
 .block.block-note .note-mark {
     position: absolute;
+}
+
+.block.block-note .note-shift {
+    position: absolute;
+    font-size: 24px;
+}
+
+.repeat {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    z-index: -1;
+}
+
+.repeat .img-container {
+    position: absolute;
+}
+
+.repeat.mark-pointed img {
+    border: 1px solid #0000ff;
 }

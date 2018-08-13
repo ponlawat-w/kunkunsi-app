@@ -10,3 +10,17 @@ body {
 body.vertical {
     overflow-y: hidden;
 }
+
+@media print {
+    @page {
+        size: landscape;
+    }
+
+    body.vertical {
+        overflow-y: visible;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}

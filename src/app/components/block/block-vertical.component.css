@@ -1,10 +1,20 @@
+.block.block-note.vertical .lyric {
+    height: 80px;
+}
+
 .block.block-note.vertical .note {
     width: 44px;
     height: 80px;
 }
 
-.block.block-note.vertical.diminutive.diminutive-multi {
-    height: 40px;
+.block.block-note.vertical .note-mark {
+    top: 6px;
+    left: 9px;
+}
+
+.block.block-note.vertical .note-shift {
+    bottom: -3px;
+    right: -11px;
 }
 
 .block.block-note.vertical.block-first .note {
@@ -15,19 +25,34 @@
     border-bottom-width: 3px;
 }
 
-.block.block-note.vertical.diminutive.diminutive-multi .note {
-    padding-right: 7px;
+.block.block-note.vertical.diminutive .note,
+.block.block-note.vertical.diminutive .lyric {
     height: 40px;
 }
 
-.block.block-note.vertical.diminutive.diminutive-single {
-    padding-top: 15px;  
-    padding-left: 47px;
+.block.block-note.vertical.diminutive.diminutive-multi .note {
+    padding-right: 7px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-single .note {
+    top: -22px;
+    left: -7px;
 }
 
 .block.block-note.vertical.diminutive.diminutive-single .note-mark {
-    top: 15px;
-    left: 22px;
+    top: 7px;
+    left: 25px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-single .note-shift {
+    bottom: -3px;
+    right: -8px;
+    font-size: 17px;
+}
+
+.block.block-note.vertical.diminutive.diminutive-single .lyric {
+    top: -22px;
+    left: 45px;
 }
 
 .block.block-note.vertical.next-single-dim .note {
@@ -39,16 +64,25 @@
     border-top-color: #ededed;
     padding-top: 15px;
 }
-
-.block.block-note.vertical .note-mark {
-    top: 6px;
-    left: 9px;
-}
-
 .block.block-note.vertical .lyric {
     border-right: 1px solid #e5e5e5;
 }
 
 .block.block-newline.empty-line.vertical {
     width: 69px;
+}
+
+.repeat.vertical.repeat-begin .img-container {
+    top: 0px;
+    left: 36px;
+}
+
+.repeat.vertical.repeat-end .img-container {
+    top: -30px;
+    left: 34px;
+}
+
+.repeat.vertical.mark-empty .img-container {
+    top: 0px;
+    left: -14px;
 }

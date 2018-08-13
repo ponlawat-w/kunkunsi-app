@@ -1,5 +1,6 @@
 .editor {
     border: 1px solid #ededed;
+    cursor: text;
 }
 
 #pointer {
@@ -30,5 +31,11 @@
 @keyframes pointer {
     to {
         visibility: hidden;
+    }
+}
+
+@media print {
+    .editor {
+        height: 100vh;
     }
 }

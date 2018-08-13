@@ -16,6 +16,10 @@ export class TitleComponent implements OnInit {
 
   ngOnInit() {}
 
+  public get unititled(): boolean {
+    return !this.editorService.project.title;
+  }
+
   toggleEditing(): void {
     this.editing = !this.editing;
     if (this.editing) {

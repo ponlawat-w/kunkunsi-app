@@ -24,8 +24,12 @@ export class EditorComponent implements OnInit {
   ngOnInit() {
   }
 
-  public get pointedIsDiminutive(): boolean {
-    return this.editorService.project.isSingleDiminutive(this.editorService.correspondPointer);
+  public get noPointer(): boolean {
+    return this.editorService.project.isSingleDiminutive(this.editorService.correspondPointer)
+      || this.editorService.project.isMark(this.editorService.pointer)
+      || (this.appService.isHorizontal()
+        && this.editorService.project.isLineBreak(this.editorService.pointer)
+        && this.editorService.project.isMark(this.editorService.correspondPointer));
   }
 
   public get pointerPosition(): {top: number, left: number} {
@@ -45,8 +49,13 @@ export class EditorComponent implements OnInit {
       pointAtBlockEnd = true;
     }
     if ($block) {
-      if (this.editorService.pointer === this.editorService.blocks.length && !this.editorService.project.isLineBreak(index)) {
+      if (this.editorService.pointer === this.editorService.blocks.length
+        && !this.editorService.project.isLineBreak(index)) {
         pointAtBlockEnd = true;
+      }
+      if (this.editorService.project.isLineBreak(this.editorService.pointer)
+        && this.editorService.project.isMark(this.editorService.pointer - 1)) {
+        pointAtBlockEnd = false;
       }
 
       if (this.appService.isVertical()) {
@@ -89,19 +98,19 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  @HostListener('focus', ['$event']) onfocus() {
+  public onfocus(): void {
     this.focus = true;
   }
 
-  @HostListener('blur', ['$event']) onblur() {
+  public onblur(): void {
     this.focus = false;
   }
 
-  @HostListener('keydown', ['$event']) onkeydown(event: KeyboardEvent) {
+  public keydown(event: KeyboardEvent): void {
     this.editorService.onkeydown(event);
   }
 
-  @HostListener('keyup', ['$event']) onkeyup(event: KeyboardEvent) {
+  public keyup(event: KeyboardEvent): void {
     if (this.editorService.onkeyup(event) && !this.viewService.pointerInScreen()) {
       this.viewService.scrollToPointer();
     }

@@ -1,0 +1,9 @@
+<div class="lyric-edit-container">
+  <form (ngSubmit)="editorService.editLyricSubmit();">
+    <input type="text" name="editLyricInput"
+      class="lyric-input"
+      [(ngModel)]="editorService.lyricEditText"
+      (blur)="editLyricCancel();"
+      (keydown)="editLyricKeyDown($event);" (keyup)="editLyricKeyUp($event);">
+  </form>
+</div>

@@ -12,6 +12,10 @@ export class AppService {
     this.setLayout(LayoutAlignment.Vertical);
   }
 
+  public get layoutAlignment(): LayoutAlignment {
+    return this.layout;
+  }
+
   public isVertical(): boolean {
     return this.layout === LayoutAlignment.Vertical;
   }
@@ -24,8 +28,10 @@ export class AppService {
     this.layout = layout;
     if (this.layout === LayoutAlignment.Vertical) {
       document.body.classList.add('vertical');
+      document.body.classList.remove('horizontal');
     } else {
       document.body.classList.remove('vertical');
+      document.body.classList.add('horizontal');
     }
   }
 }

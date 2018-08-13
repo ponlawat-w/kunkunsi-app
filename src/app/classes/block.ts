@@ -30,6 +30,18 @@ export class Block {
         return (this.kunkunsi as Note).toMark();
     }
 
+    public get shift(): string {
+        if (!(this.kunkunsi instanceof Note)) {
+            return null;
+        }
+        return (this.kunkunsi as Note).toShift();
+    }
+
+    get block(): boolean {
+        return (this.kunkunsi instanceof Note) ||
+            (this.kunkunsi instanceof NoteSymbol && this.kunkunsi.value === SpecialNote.NewLine);
+    }
+
     get classes(): string[] {
         if (this.kunkunsi instanceof Note) {
             return ['block', 'block-note'];
@@ -39,10 +51,24 @@ export class Block {
             switch (this.kunkunsi.value) {
                 case SpecialNote.NewLine:
                     return ['block', 'block-newline'];
+                case SpecialNote.ArrowRepeatBegin:
+                    return ['repeat', 'repeat-begin', 'repeat-arrow'];
+                case SpecialNote.ArrowRepeatEnd:
+                    return ['repeat', 'repeat-end', 'repeat-arrow'];
+                case SpecialNote.CircleRepeatBegin:
+                    return ['repeat', 'repeat-begin', 'repeat-circle'];
+                case SpecialNote.CircleRepeatEnd:
+                    return ['repeat', 'repeat-end', 'repeat-circle'];
             }
         }
 
         return [];
+    }
+
+    public setShift(byte: number): void {
+        if (this.kunkunsi instanceof Note && NoteSymbol.isFlatSharp(byte)) {
+            (this.kunkunsi as Note).shift = byte;
+        }
     }
 
     public toggleDiminutive(): void {
