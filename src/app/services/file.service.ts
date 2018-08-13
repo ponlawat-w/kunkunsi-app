@@ -5,6 +5,13 @@ import { SpecialNote } from '../enums/note';
 import { NoteSymbol } from '../classes/note-symbol';
 import { EditorService } from './editor.service';
 
+interface FileReaderEventTarget extends EventTarget {
+  result: Uint8Array;
+}
+
+declare const TextDecoder;
+declare const TextEncoder;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +47,8 @@ export class FileService {
       const file = $file.files[0];
       const fileReader = new FileReader();
       fileReader.onload = event => {
-        this.editorService.project = this.bytesToProject(new Uint8Array(event.target.result));
+        const target: FileReaderEventTarget = event.target as FileReaderEventTarget;
+        this.editorService.project = this.bytesToProject(new Uint8Array(target.result));
         this.editorService.pointer = 0;
       };
       fileReader.readAsArrayBuffer(file);
