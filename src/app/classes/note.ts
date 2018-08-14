@@ -101,4 +101,10 @@ export class Note extends KunKunSiByte {
     public isDiminutive(): boolean {
         return (this.value & 0b00100000) ? true : false;
     }
+
+    public clone(): Note {
+        const note = new Note(this.value);
+        note.shift = this.shift;
+        return note;
+    }
 }

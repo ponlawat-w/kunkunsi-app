@@ -17,4 +17,8 @@ export class NoteSymbol extends KunKunSiByte {
             SpecialNote.CircleRepeatBegin, SpecialNote.CircleRepeatEnd
         ].indexOf(value) > -1;
     }
+
+    public clone(): NoteSymbol {
+        return new NoteSymbol(this.value);
+    }
 }

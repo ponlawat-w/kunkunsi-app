@@ -37,6 +37,26 @@ export class Project {
     public title: string;
     public blocks: Block[];
 
+    public static fromJsonObject(jsonObj: any): Project {
+        const proj = new Project();
+        proj.title = jsonObj.title ? jsonObj.title : null;
+        jsonObj.blocks.forEach(blockObj => {
+            const byte = blockObj.kunkunsi.value;
+            const block = new Block();
+            if (Note.isValidNote(byte) || Note.isSpace(byte)) {
+                const note = new Note(byte);
+                note.shift = blockObj.kunkunsi.shift;
+                block.kunkunsi = note;
+            } else {
+                const symbol = new NoteSymbol(byte);
+                block.kunkunsi = symbol;
+            }
+            block.lyric = blockObj._lyric ? blockObj._lyric : null;
+            proj.blocks.push(block);
+        });
+        return proj;
+    }
+
     constructor() {
         this.title = '';
         this.blocks = [];
@@ -180,5 +200,12 @@ export class Project {
 
     public lyricable(index: number): boolean {
         return this.validIndex(index) ? this.isNote(index) || this.isSpace(index) : false;
+    }
+
+    public clone(): Project {
+        const newProj = new Project();
+        newProj.title = this.title;
+        newProj.blocks = this.blocks.map(block => block.clone());
+        return newProj;
     }
 }

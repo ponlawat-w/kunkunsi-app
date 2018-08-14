@@ -7,7 +7,7 @@ export class Block {
     public kunkunsi: KunKunSiByte;
     private _lyric: string;
 
-    constructor (kunkunsi: KunKunSiByte) {
+    constructor (kunkunsi: KunKunSiByte = null) {
         this.kunkunsi = kunkunsi;
         this.lyric = '';
     }
@@ -81,5 +81,11 @@ export class Block {
         if (this.kunkunsi instanceof Note) {
             return (this.kunkunsi as Note).toLetter();
         }
+    }
+
+    public clone(): Block {
+        const block = new Block(this.kunkunsi.clone());
+        block.lyric = this.lyric;
+        return block;
     }
 }

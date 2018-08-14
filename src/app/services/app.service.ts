@@ -9,7 +9,12 @@ export class AppService {
   private layout: LayoutAlignment;
 
   constructor() {
-    this.setLayout(LayoutAlignment.Vertical);
+    const layout = parseInt(localStorage.getItem('layout'), 10);
+    if (layout) {
+      this.setLayout(layout);
+    } else {
+      this.setLayout(LayoutAlignment.Vertical);
+    }
   }
 
   public get layoutAlignment(): LayoutAlignment {
@@ -26,10 +31,11 @@ export class AppService {
 
   public setLayout(layout: LayoutAlignment): void {
     this.layout = layout;
+    localStorage.setItem('layout', layout.toString());
     if (this.layout === LayoutAlignment.Vertical) {
       document.body.classList.add('vertical');
       document.body.classList.remove('horizontal');
-    } else {
+    } else if (this.layout === LayoutAlignment.Horizontal) {
       document.body.classList.remove('vertical');
       document.body.classList.add('horizontal');
     }

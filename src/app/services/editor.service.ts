@@ -7,6 +7,8 @@ import { SpecialNote, GeneralNote, NoteMark, NoteShift } from '../enums/note';
 import { AppService } from './app.service';
 import { NoteSymbol } from '../classes/note-symbol';
 import { ViewService } from './view.service';
+import { EventEmitter } from '../../../node_modules/protractor';
+import { HistoryService } from './history.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,8 @@ export class EditorService {
 
   constructor(
     public appService: AppService,
-    public viewService: ViewService
+    public viewService: ViewService,
+    public historyService: HistoryService
   ) {
     this.project = new Project();
     this._pointer = 0;
@@ -34,6 +37,8 @@ export class EditorService {
     this.specialMap = SPECIAL_KEY.QWERTY;
     this.lyricEditIndex = -1;
     this.lyricEditText = null;
+    this.loadLocalStorage();
+    this.pushHistory();
   }
 
   get title(): string {
@@ -42,6 +47,7 @@ export class EditorService {
 
   set title(newtitle: string) {
     this.project.title = newtitle.trim();
+    this.pushHistory();
   }
 
   get blocks(): Block[] {
@@ -86,10 +92,45 @@ export class EditorService {
   }
 
   public newProject(): void {
+    this.historyService.clear();
     this.lyricEditIndex = -1;
     this.project = new Project();
     this.pointer = 0;
     this.viewService.editorElement.focus();
+    this.pushHistory();
+  }
+
+  public loadLocalStorage(): boolean {
+    const json = localStorage.getItem('project');
+    if (json) {
+      const obj = JSON.parse(json);
+      if (obj && (obj.title || obj.blocks.length) &&
+        confirm(`前回の工工四の「${obj.title}」を続けますか。`)) {
+        this.project = Project.fromJsonObject(obj);
+        return true;
+      }
+      localStorage.setItem('project', null);
+    }
+
+    return false;
+  }
+
+  public pushHistory(): void {
+    this.historyService.push(this.project);
+  }
+
+  public undo(): void {
+    const p = this.historyService.undo();
+    if (p) {
+      this.project = p;
+    }
+  }
+
+  public redo(): void {
+    const p = this.historyService.redo();
+    if (p) {
+      this.project = p;
+    }
   }
 
   public editLyricStart(index: number): void {
@@ -114,6 +155,7 @@ export class EditorService {
     this.pointer = this.lyricEditIndex;
     this.editLyricStop();
     this.editNextLyric();
+    this.pushHistory();
   }
 
   public editNextLyric(): void {
@@ -167,6 +209,13 @@ export class EditorService {
       return true;
     }
 
+    if (event.ctrlKey) {
+      switch (event.key) {
+        case 'z': this.undo(); return true;
+        case 'x': this.redo(); return true;
+      }
+    }
+
     const key = event.key.toLowerCase();
     if (typeof this.keyMap[key] !== 'undefined') {
       let note = this.keyMap[key];
@@ -179,6 +228,7 @@ export class EditorService {
       }
       this.project.insertNote(new Note(note), this.pointer);
       this.pointer++;
+      this.pushHistory();
       return true;
     }
 
@@ -189,12 +239,14 @@ export class EditorService {
       if (event.shiftKey) {
         this.keyWithLetter = true;
       }
+      this.pushHistory();
       return true;
     }
 
     if (event.key === '1') {
       if (this.project.validIndex(this.correspondPointer)) {
         this.project.blocks[this.correspondPointer].toggleDiminutive();
+        this.pushHistory();
       }
       return true;
     }
@@ -208,6 +260,7 @@ export class EditorService {
       if (this.project.validIndex(this.correspondPointer)) {
         const note = this.project.blocks[this.correspondPointer].kunkunsi as Note;
         note.shift = note.shift === NoteShift.Sharp ? NoteShift.None : NoteShift.Sharp;
+        this.pushHistory();
       }
       return true;
     }
@@ -215,6 +268,7 @@ export class EditorService {
       if (this.project.validIndex(this.correspondPointer)) {
         const note = this.project.blocks[this.correspondPointer].kunkunsi as Note;
         note.shift = note.shift === NoteShift.Flat ? NoteShift.None : NoteShift.Flat;
+        this.pushHistory();
       }
       return true;
     }
@@ -222,12 +276,14 @@ export class EditorService {
     if (event.keyCode === KEY_CODE.SPACEBAR) {
       this.project.insertNote(new Note(GeneralNote.Space), this.pointer);
       this.pointer++;
+      this.pushHistory();
       return true;
     }
 
     if (event.keyCode === KEY_CODE.ENTER) {
       this.project.insertSymbol(new NoteSymbol(SpecialNote.NewLine), this.pointer);
       this.pointer++;
+      this.pushHistory();
       return true;
     }
 
@@ -237,9 +293,11 @@ export class EditorService {
         wordBreak = wordBreak === this.pointer ? wordBreak - 1 : wordBreak;
         this.project.deleteSpan(wordBreak, this.pointer);
         this.pointer = wordBreak;
+        this.pushHistory();
         return true;
       }
       this.project.deleteOne(--this.pointer);
+      this.pushHistory();
       return true;
     }
 
@@ -247,9 +305,11 @@ export class EditorService {
       if (event.ctrlKey) {
         const wordBreak = this.project.nextWordBreakIndexFrom(this.pointer);
         this.project.deleteSpan(this.pointer, wordBreak);
+        this.pushHistory();
         return true;
       }
       this.project.deleteOne(this.pointer);
+      this.pushHistory();
       return true;
     }
 
@@ -306,11 +366,13 @@ export class EditorService {
       if (event.keyCode === KEY_CODE.SHIFT) {
         if (this.project.validIndex(this.correspondPointer)) {
           (this.blocks[this.correspondPointer].kunkunsi as Note).toggleTouch();
+          this.pushHistory();
         }
         return true;
       } else if (event.keyCode === KEY_CODE.ALT) {
         if (this.project.validIndex(this.correspondPointer)) {
           (this.blocks[this.correspondPointer].kunkunsi as Note).toggleSwing();
+          this.pushHistory();
         }
         return true;
       }
