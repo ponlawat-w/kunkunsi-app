@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppService } from './app.service';
+import { LayoutAlignment } from '../enums/layout-alignment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,11 @@ import { AppService } from './app.service';
 export class ViewService {
 
   constructor(public appService: AppService) {
+    this.createPrintStyleElement();
+    this.setPrintStyle(this.appService.layoutAlignment);
+    this.appService.layoutChange.subscribe(layout => {
+      this.setPrintStyle(layout);
+    });
   }
 
   public get editorElement(): HTMLElement {
@@ -27,6 +33,25 @@ export class ViewService {
 
   public get pointerElement(): HTMLElement {
     return document.getElementById('pointer');
+  }
+
+  public get printStyleElement(): HTMLElement {
+    return document.getElementById('print-style');
+  }
+
+  public createPrintStyleElement(): void {
+    const $head = document.getElementsByTagName('head')[0];
+    const $style = document.createElement('style');
+    $style.setAttribute('id', 'print-style');
+    $style.appendChild(document.createTextNode(''));
+    $head.appendChild($style);
+  }
+
+  public setPrintStyle(layout: LayoutAlignment): void {
+    const size = layout === LayoutAlignment.Vertical ? 'landscape' : 'portrait';
+    if (this.printStyleElement) {
+      this.printStyleElement.innerHTML = `@media print { @page {size: ${size};}}`;
+    }
   }
 
   public inScreen(top: number, left: number): boolean {

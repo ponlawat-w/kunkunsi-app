@@ -12,10 +12,6 @@ body.vertical {
 }
 
 @media print {
-    @page {
-        size: landscape;
-    }
-
     body.vertical {
         overflow-y: visible;
     }

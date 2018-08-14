@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { LayoutAlignment } from '../enums/layout-alignment';
 
 @Injectable({
@@ -7,8 +7,11 @@ import { LayoutAlignment } from '../enums/layout-alignment';
 export class AppService {
 
   private layout: LayoutAlignment;
+  public layoutChange: EventEmitter<LayoutAlignment>;
 
   constructor() {
+    this.layoutChange = new EventEmitter<LayoutAlignment>();
+
     const layout = parseInt(localStorage.getItem('layout'), 10);
     if (layout) {
       this.setLayout(layout);
@@ -39,5 +42,6 @@ export class AppService {
       document.body.classList.remove('vertical');
       document.body.classList.add('horizontal');
     }
+    this.layoutChange.emit(this.layout);
   }
 }
