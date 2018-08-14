@@ -1,0 +1,27 @@
+.page {
+    display: block;
+    position: relative;
+    background-color: #ededed;
+    writing-mode: vertical-rl;
+    width: 100%;
+    overflow: hidden;
+    z-index: -2;
+}
+
+.line {
+    white-space: nowrap;
+}
+
+@media print {
+    .page-container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .page {
+        background-color: #ffffff;
+        width: 100vw;
+        height: 100vh;
+    }
+}

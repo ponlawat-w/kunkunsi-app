@@ -7,16 +7,21 @@ body {
     margin-top: 56px;
 }
 
-body.vertical {
+body.vertical.edit {
     overflow-y: hidden;
 }
 
 @media print {
-    body.vertical {
-        overflow-y: visible;
+    @page {
+        margin: 8mm 5mm;
+    }
+
+    body {
+        margin: 0;
     }
 
     .no-print, .no-print * {
+        visibility: hidden;
         display: none !important;
     }
 }

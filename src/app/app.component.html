@@ -1,2 +1,3 @@
 <app-navbar></app-navbar>
-<app-body></app-body>
+<app-body *ngIf="!appService.printing"></app-body>
+<app-print *ngIf="appService.printing"></app-print>

@@ -1,0 +1,4 @@
+<div class="print">
+  <h1 class="text-center">{{title}}</h1>
+  <app-block *ngFor="let block of blocks; let i = index" [object]="block" [index]="i"></app-block>
+</div>

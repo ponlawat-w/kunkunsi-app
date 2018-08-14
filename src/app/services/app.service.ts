@@ -6,10 +6,13 @@ import { LayoutAlignment } from '../enums/layout-alignment';
 })
 export class AppService {
 
+  private print: boolean;
+
   private layout: LayoutAlignment;
   public layoutChange: EventEmitter<LayoutAlignment>;
 
   constructor() {
+    this.print = false;
     this.layoutChange = new EventEmitter<LayoutAlignment>();
 
     const layout = parseInt(localStorage.getItem('layout'), 10);
@@ -17,6 +20,19 @@ export class AppService {
       this.setLayout(layout);
     } else {
       this.setLayout(LayoutAlignment.Vertical);
+    }
+  }
+
+  public get printing(): boolean {
+    return this.print;
+  }
+
+  public set printing(b: boolean) {
+    this.print = b;
+    if (this.print) {
+      document.body.classList.remove('edit');
+    } else {
+      document.body.classList.add('edit');
     }
   }
 

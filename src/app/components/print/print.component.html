@@ -1,0 +1,36 @@
+<div id="print-settings" *ngIf="appService.isVertical();" class="no-print">
+  <form (ngSubmit)="print();">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="blockPerLine">行の文字数：</label>
+          <input name="blockPerLine" type="number" [(ngModel)]="blockPerLine" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="linePerPage">ページの行数：</label>
+          <input name="linePerPage" type="number" [(ngModel)]="linePerPage" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="text-right">
+      <a href="#" (click)="appService.printing = false;">キャンセル</a>
+      <button type="submit" class="btn btn-lg btn-primary">印刷</button>
+    </div>
+  </form>
+</div>
+<div class="container-fluid padding-top no-print" *ngIf="appService.isHorizontal();">
+    <div class="text-right">
+      <a href="#" (click)="appService.printing = false;">キャンセル</a>
+      <button type="button" (click)="print();" class="btn btn-lg btn-primary">印刷</button>
+    </div>
+</div>
+<hr class="no-print">
+<div class="container-fluid no-print">
+  <h1>印刷プレビュー</h1>
+</div>
+<app-print-vertical
+  *ngIf="appService.isVertical()"
+  [blockPerLine]="blockPerLine" [linePerPage]="linePerPage"></app-print-vertical>
+<app-print-horizontal *ngIf="appService.isHorizontal()"></app-print-horizontal>

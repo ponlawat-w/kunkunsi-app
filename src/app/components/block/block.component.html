@@ -4,7 +4,7 @@
     (click)="editorService.pointer = index;">
     <div class="lyric" *ngIf="object.block"
         [class.lyric-editing]="lyricBeingEdited"
-        (click)="editorService.editLyricStart(index);">
+        (click)="editLyric();">
         {{object.lyric ? object.lyric : '&nbsp;'}}
     </div>
     <app-lyric-edit *ngIf="object.block && lyricBeingEdited">

@@ -1,0 +1,9 @@
+.print {
+    background-color: #ededed;
+}
+
+@media print {
+    .print {
+        background-color: #ffffff;
+    }
+}

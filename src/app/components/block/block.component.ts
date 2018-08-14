@@ -121,4 +121,10 @@ export class BlockComponent implements OnInit {
       && this.editorService.project.isLineBreak(this.index + 2);
   }
 
+  public editLyric(): void {
+    if (!this.appService.printing) {
+      this.editorService.editLyricStart(this.index);
+    }
+  }
+
 }

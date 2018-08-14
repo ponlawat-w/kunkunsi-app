@@ -2,16 +2,25 @@
   <a class="navbar-brand" href="#">My工工四</a>
 
   <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <button class="btn btn-outline-success" (click)="newProject();">
-        新規
-      </button>
-    </li>
-    <li class="nav-item">
-      <button class="btn btn-outline-primary" (click)="fileService.load();">
-        ＰＣから読込
-      </button>
-    </li>
+    <ng-container *ngIf="!appService.printing">
+      <li class="nav-item">
+        <button class="btn btn-outline-success" (click)="newProject();">
+          新規
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary" (click)="fileService.load();">
+          ＰＣから読込
+        </button>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="appService.printing">
+      <li class="nav-item">
+        <button class="btn btn-primary" (click)="print();">
+          印刷
+        </button>
+      </li>
+    </ng-container>
   </ul>
 
   <ul class="navbar-nav">
@@ -21,10 +30,13 @@
         <button class="btn" [class.btn-primary]="appService.isHorizontal()" (click)="setHorizontal();">横書</button>
       </div>
     </li>
-    <li class="nav-item">
-      <button class="btn btn-sm btn-info" (click)="print();">印刷</button>
+    <li class="nav-item" *ngIf="!appService.printing">
+      <button class="btn btn-sm btn-info" (click)="appService.printing = !appService.printing;">印刷</button>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="appService.printing">
+      <button class="btn btn-warning" (click)="appService.printing = !appService.printing;">エディター</button>
+    </li>
+    <li class="nav-item" *ngIf="!appService.printing">
       <button class="btn btn-success" (click)="fileService.save();">
         ＰＣに保存
       </button>

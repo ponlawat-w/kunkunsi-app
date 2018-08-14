@@ -9,6 +9,9 @@ import { TitleComponent } from './components/title/title.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { BlockComponent } from './components/block/block.component';
 import { LyricEditComponent } from './components/block/lyric-edit/lyric-edit.component';
+import { PrintVerticalComponent } from './components/print/print-vertical/print-vertical.component';
+import { PrintHorizontalComponent } from './components/print/print-horizontal/print-horizontal.component';
+import { PrintComponent } from './components/print/print.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { LyricEditComponent } from './components/block/lyric-edit/lyric-edit.com
     TitleComponent,
     EditorComponent,
     BlockComponent,
-    LyricEditComponent
+    LyricEditComponent,
+    PrintVerticalComponent,
+    PrintHorizontalComponent,
+    PrintComponent
   ],
   imports: [
     BrowserModule,

@@ -33,9 +33,3 @@
         visibility: hidden;
     }
 }
-
-@media print {
-    .editor {
-        height: 100vh;
-    }
-}
