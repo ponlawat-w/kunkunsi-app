@@ -48,7 +48,7 @@ export class FileService {
       const fileReader = new FileReader();
       fileReader.onload = event => {
         const target: FileReaderEventTarget = event.target as FileReaderEventTarget;
-        this.editorService.newProject();
+        this.editorService.newProject(false);
         this.editorService.project = this.bytesToProject(new Uint8Array(target.result));
         this.editorService.pointer = 0;
         this.editorService.pushHistory();

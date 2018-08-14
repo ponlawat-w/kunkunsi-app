@@ -26,11 +26,14 @@ export class EditorService {
   public lyricEditIndex: number;
   public lyricEditText: string;
 
+  public focus: boolean;
+
   constructor(
     public appService: AppService,
     public viewService: ViewService,
     public historyService: HistoryService
   ) {
+    this.focus = false;
     this.project = new Project();
     this._pointer = 0;
     this.keyMap = NOTE_KEY.QWERTY;
@@ -91,13 +94,15 @@ export class EditorService {
     return this.lyricEditIndex > -1;
   }
 
-  public newProject(): void {
+  public newProject(autofocus: boolean = true): void {
     this.historyService.clear();
     this.lyricEditIndex = -1;
     this.project = new Project();
     this.pointer = 0;
-    this.viewService.editorElement.focus();
     this.pushHistory();
+    if (autofocus) {
+      this.viewService.editorElement.focus();
+    }
   }
 
   public loadLocalStorage(): boolean {
@@ -143,9 +148,9 @@ export class EditorService {
   }
 
   public editLyricStop(): void {
+    this.viewService.editorElement.focus();
     this.lyricEditIndex = -1;
     this.lyricEditText = null;
-    this.viewService.editorElement.focus();
   }
 
   public editLyricSubmit(): void {
@@ -206,7 +211,7 @@ export class EditorService {
 
   public onkeyup(event: KeyboardEvent): boolean {
     if (this.preventKeyEvent) {
-      return true;
+      return false;
     }
 
     if (event.ctrlKey) {

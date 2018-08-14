@@ -3,7 +3,7 @@
     <input type="text" name="editLyricInput"
       class="lyric-input"
       [(ngModel)]="editorService.lyricEditText"
-      (blur)="editLyricCancel();"
+      (focus)="focusInput($event);" (blur)="editLyricCancel();"
       (keydown)="editLyricKeyDown($event);" (keyup)="editLyricKeyUp($event);">
   </form>
 </div>

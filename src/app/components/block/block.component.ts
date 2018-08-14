@@ -72,7 +72,7 @@ export class BlockComponent implements OnInit {
         classes.push('diminutive');
         if (this.editorService.project.isSingleDiminutive(this.index)) {
           classes.push('diminutive-single');
-          if (this.editorService.pointer === this.index) {
+          if (this.editorService.focus && this.editorService.pointer === this.index) {
             classes.push('diminutive-single-pointed');
           }
         } else {
@@ -91,7 +91,7 @@ export class BlockComponent implements OnInit {
       if (this.editorService.project.isEmptyLine(this.index)) {
         classes.push('empty-line');
       } else if (this.editorService.project.isMark(this.index)) {
-        if (this.editorService.pointer === this.index) {
+        if (this.editorService.focus && this.editorService.pointer === this.index) {
           classes.push('mark-pointed');
         }
         if (this.editorService.project.isEmptyLineTrimmed(this.index)) {

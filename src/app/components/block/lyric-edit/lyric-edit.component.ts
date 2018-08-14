@@ -19,6 +19,10 @@ export class LyricEditComponent implements OnInit {
       .getElementsByClassName('lyric-input')[0] as HTMLElement).focus();
   }
 
+  public focusInput(event: FocusEvent) {
+    (event.target as Element).scrollIntoView();
+  }
+
   public editLyricCancel(): void {
     this.editorService.editLyricStop();
   }

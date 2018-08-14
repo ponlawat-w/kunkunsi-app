@@ -8,7 +8,7 @@
     <app-block *ngFor="let block of editorService.blocks; let i = index"
         [object]="block" [index]="i"></app-block>
     <div id="pointer" class="no-print"
-        [hidden]="noPointer || !focus"
+        [hidden]="noPointer || !editorService.focus"
         [style.top]="pointerPositionCss.top"
         [style.left]="pointerPositionCss.left"></div>
 </div>

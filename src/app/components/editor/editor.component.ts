@@ -12,8 +12,6 @@ import { ViewService } from '../../services/view.service';
 })
 export class EditorComponent implements OnInit {
 
-  public focus: boolean;
-
   constructor(
     public elementRef: ElementRef,
     public appService: AppService,
@@ -99,11 +97,11 @@ export class EditorComponent implements OnInit {
   }
 
   public onfocus(): void {
-    this.focus = true;
+    this.editorService.focus = true;
   }
 
   public onblur(): void {
-    this.focus = false;
+    this.editorService.focus = false;
   }
 
   public keydown(event: KeyboardEvent): void {

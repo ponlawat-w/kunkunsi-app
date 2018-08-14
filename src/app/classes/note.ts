@@ -1,5 +1,5 @@
 import { KunKunSiByte } from './kunkunsi-byte';
-import { NoteMark, NoteShift, SpecialNote, GeneralNote } from '../enums/note';
+import { NoteMark, NoteShift, GeneralNote } from '../enums/note';
 
 const NOTE_STRING = {
     0b00000: '〇',
@@ -18,6 +18,16 @@ const NOTE_STRING = {
     0b11011: '七',
     0b11100: '八',
     0b11101: '九'
+};
+
+const MARK_STRING = {
+    0b01000000: '‵',
+    0b10000000: '⌝'
+};
+
+const SHIFT_STRING = {
+    0b11001000: '♭',
+    0b11001001: '♯'
 };
 
 export class Note extends KunKunSiByte {
@@ -76,23 +86,15 @@ export class Note extends KunKunSiByte {
 
     public toMark(): string {
         const mark = this.value & 0b11000000;
-
-        switch (mark) {
-            case NoteMark.Touch:
-                return '`';
-            case NoteMark.Swing:
-                return '⌝';
-        }
-
-        return null;
+        return MARK_STRING[mark];
     }
 
     public toShift(): string {
         if (this.shift === NoteShift.Sharp) {
-            return '♯';
+            return SHIFT_STRING[this.shift];
         }
         if (this.shift === NoteShift.Flat) {
-            return '♭';
+            return SHIFT_STRING[this.shift];
         }
 
         return null;

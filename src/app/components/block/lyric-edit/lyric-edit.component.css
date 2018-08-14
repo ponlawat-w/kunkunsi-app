@@ -1,8 +1,13 @@
 .lyric-edit-container {
     position: relative;
+    z-index: 200;
 }
 
 .lyric-edit-container form {
     position: absolute;
     z-index: 500;
+}
+
+.lyric-edit-container form input {
+    z-index: 1000;
 }
