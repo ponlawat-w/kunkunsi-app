@@ -2,6 +2,16 @@
     background-color: #ededed;
 }
 
+.description {
+    font-size: 1.3em;
+}
+
+.lyric {
+    font-size: 1.5em;
+    white-space: pre-line;
+    page-break-inside: avoid;
+}
+
 @media print {
     .print {
         background-color: #ffffff;

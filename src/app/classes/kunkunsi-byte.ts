@@ -11,3 +11,13 @@ export abstract class KunKunSiByte {
 
     public abstract clone();
 }
+
+export class KunKunSiPrintLyric extends KunKunSiByte {
+    constructor() {
+        super(null);
+    }
+
+    public clone(): KunKunSiPrintLyric {
+        return new KunKunSiPrintLyric();
+    }
+}

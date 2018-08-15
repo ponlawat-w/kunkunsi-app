@@ -1,7 +1,27 @@
+h1 {
+    display: inline-block;
+}
+
+h1 span:hover {
+    background-color: #ededed;
+}
+
+.edit-form .form-panel {
+    padding: 5px 2px;
+}
+
+.edit-form .form-panel button {
+    margin: 0 5px;
+}
+
 .edit-form.vertical, .edit-form.vertical * {
     writing-mode: horizontal-tb;
 }
 
 .edit-btn {
     margin: 5px 10px;
+}
+
+.untitled {
+    color: #aaaaaa;
 }

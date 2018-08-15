@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
 import { AppService } from '../../services/app.service';
+import { NgbModal, NgbModalRef } from '../../../../node_modules/@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-title',
@@ -9,10 +10,16 @@ import { AppService } from '../../services/app.service';
 })
 export class TitleComponent implements OnInit {
 
-  editing: boolean;
-  newTitle: string;
+  @ViewChild('editDialog') modalElement;
+  public modalRef: NgbModalRef;
 
-  constructor(public appService: AppService, public editorService: EditorService) { }
+  public newTitle: string;
+
+  constructor(
+    public appService: AppService,
+    public editorService: EditorService,
+    public modalService: NgbModal
+  ) { }
 
   ngOnInit() {}
 
@@ -20,16 +27,14 @@ export class TitleComponent implements OnInit {
     return !this.editorService.project.title;
   }
 
-  toggleEditing(): void {
-    this.editing = !this.editing;
-    if (this.editing) {
-      this.newTitle = this.editorService.project.title;
-    }
+  startEditing(): void {
+    this.newTitle = this.editorService.project.title;
+    this.modalRef = this.modalService.open(this.modalElement, { size: 'lg' });
   }
 
   submitTitle(): void {
+    this.modalRef.close();
     this.editorService.title = this.newTitle;
-    this.toggleEditing();
   }
 
 }

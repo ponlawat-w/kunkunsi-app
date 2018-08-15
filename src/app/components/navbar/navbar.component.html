@@ -31,15 +31,18 @@
       </div>
     </li>
     <li class="nav-item" *ngIf="!appService.printing">
-      <button class="btn btn-sm btn-info" (click)="appService.printing = !appService.printing;">印刷</button>
-    </li>
-    <li class="nav-item" *ngIf="appService.printing">
-      <button class="btn btn-warning" (click)="appService.printing = !appService.printing;">エディター</button>
-    </li>
-    <li class="nav-item" *ngIf="!appService.printing">
       <button class="btn btn-success" (click)="fileService.save();">
         ＰＣに保存
       </button>
+    </li>
+    <li class="nav-item" *ngIf="!appService.printing">
+      <button class="btn btn-info" (click)="appService.printing = !appService.printing;">印刷</button>
+    </li>
+    <li class="nav-item" *ngIf="appService.printing">
+      <button class="btn btn-outline-secondary" (click)="appService.printing = !appService.printing;">戻る</button>
+    </li>
+    <li class="nav-item">
+      <a href="https://github.com/ponlawat-w/kunkunsi-app/wiki" title="このサイトについて" target="_blank" class="btn btn-sm btn-outline-info help-btn font-weight-bold">？</a>
     </li>
   </ul>
 </nav>

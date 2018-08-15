@@ -36,8 +36,14 @@ export class FileService {
   }
 
   public load(): void {
+    const $oldFile = document.getElementById('load-file-input');
+    if ($oldFile) {
+      $oldFile.remove();
+    }
+
     const $file: HTMLInputElement = document.createElement('input');
     $file.setAttribute('type', 'file');
+    $file.setAttribute('id', 'load-file-input');
     $file.click();
     $file.addEventListener('change', () => {
       if (!$file.files.length) {
@@ -75,7 +81,9 @@ export class FileService {
     byteInts.push(SpecialNote.End);
     const info = {
       title: project.title,
-      lyrics: lyrics
+      description: project.description,
+      lyrics: lyrics,
+      moreLyrics: project.additionalLyrics
     };
     const infoBytes = (new TextEncoder()).encode(JSON.stringify(info));
 
@@ -112,7 +120,9 @@ export class FileService {
     if (endIndex > -1) {
       const footer = bytes.slice(endIndex + 1);
       const info = JSON.parse((new TextDecoder()).decode(footer));
-      project.title = info.title;
+      project.title = info.title ? info.title : null;
+      project.description = info.description ? info.description : null;
+      project.additionalLyrics = info.moreLyrics ? info.moreLyrics : null;
       info.lyrics.forEach((lyric, index) => {
         if (!project.validIndex(index)) {
           return true;

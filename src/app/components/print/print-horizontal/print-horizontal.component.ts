@@ -20,6 +20,10 @@ export class PrintHorizontalComponent implements OnInit {
     return this.editorService.blocks;
   }
 
+  public get additionalLyrics(): string[] {
+    return this.editorService.additionalLyrics.split('\n\n');
+  }
+
   constructor(public editorService: EditorService) { }
 
   ngOnInit() {

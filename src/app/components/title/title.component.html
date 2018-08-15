@@ -1,13 +1,25 @@
-<h1 *ngIf="!editing" [class.untitled]="unititled">
-  <span (click)="toggleEditing();">{{editorService.title}}</span>
-  <button class="btn edit-btn btn-sm btn-info no-print" (click)="toggleEditing();">編集</button>
+<h1 [class.untitled]="unititled">
+  <span (click)="startEditing();">{{editorService.title}}</span>
+  <button class="btn edit-btn btn-sm btn-outline-info no-print" (click)="startEditing();">編集</button>
 </h1>
-<div *ngIf="editing" class="no-print edit-form" [class.vertical]="appService.isVertical()">
-  <form (ngSubmit)="submitTitle();">
-    <input type="text" class="form-control" [(ngModel)]="newTitle" name="newTitle" placeholder="タイトルを入れてください。">
-    <div class="text-right">
-      <button type="button" (click)="toggleEditing();" class="btn btn-sm btn-dark">キャンセル</button>
-      <button type="submit" class="btn btn-sm btn-success">編集</button>
-    </div>
-  </form>
-</div>
+<ng-template #editDialog let-dismiss="dismiss">
+  <div class="modal-header">
+    タイトル編集
+    <button class="close" (click)="dismiss();">×</button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submitTitle();">
+      <div class="form-group">
+        <label for="title-input">
+          タイトル
+        </label>
+        <input type="text" name="title-input" placeholder="唄の名前をここに入れてください。"
+          [(ngModel)]="newTitle" class="form-control form-control-lg" autofocus>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="dismiss();" class="btn btn-sm btn-outline-light text-dark">キャンセル</button>
+    <button type="submit" (click)="submitTitle();" class="btn btn-primary">保存</button>
+  </div>
+</ng-template>

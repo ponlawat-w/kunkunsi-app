@@ -53,6 +53,24 @@ export class EditorService {
     this.pushHistory();
   }
 
+  get description(): string {
+    return this.project.description;
+  }
+
+  set description(d: string) {
+    this.project.description = d;
+    this.pushHistory();
+  }
+
+  get additionalLyrics(): string {
+    return this.project.additionalLyrics;
+  }
+
+  set additionalLyrics(l: string) {
+    this.project.additionalLyrics = l;
+    this.pushHistory();
+  }
+
   get blocks(): Block[] {
     return this.project.blocks;
   }

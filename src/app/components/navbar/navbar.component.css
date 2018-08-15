@@ -5,3 +5,7 @@ nav {
 .nav-item {
     margin: 0 3px;
 }
+
+.help-btn {
+    border-radius: 50%;
+}

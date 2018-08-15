@@ -1,0 +1,16 @@
+.description, .description h3 {
+    display: inline-block;
+}
+
+.description span {
+    padding: 5px 3px;
+    white-space: pre-line;
+}
+
+.description h3:hover, .description span:hover {
+    background-color: #ededed;
+}
+
+.no-description {
+    color: #aaaaaa;
+}

@@ -4,12 +4,28 @@
     background-color: #ededed;
     writing-mode: vertical-rl;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    padding: 3mm 0;
     z-index: -2;
 }
 
 .line {
     white-space: nowrap;
+}
+
+h1 {
+    display: inline-block;
+}
+
+.description {
+    display: inline-block;
+    padding: 1mm 0;
+}
+
+.lyric {
+    white-space: pre-line;
+    margin: 0 3mm;
+    font-size: 1.5em;
 }
 
 @media print {

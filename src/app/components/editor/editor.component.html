@@ -1,4 +1,5 @@
 <div id="editor" class="editor"
+    [class.not-focus]="!editorService.focus && editorService.lyricEditIndex < 0"
     [class.vertical]="appService.isVertical()"
     [class.horizontal]="appService.isHorizontal()"
     (click)="editorClick($event);"
@@ -7,8 +8,8 @@
     tabindex="0">
     <app-block *ngFor="let block of editorService.blocks; let i = index"
         [object]="block" [index]="i"></app-block>
-    <div id="pointer" class="no-print"
-        [hidden]="noPointer || !editorService.focus"
+    <div id="pointer" class="no-print" *ngIf="editorService.focus"
+        [hidden]="noPointer"
         [style.top]="pointerPositionCss.top"
         [style.left]="pointerPositionCss.left"></div>
 </div>

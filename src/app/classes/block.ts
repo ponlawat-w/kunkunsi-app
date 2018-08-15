@@ -1,4 +1,4 @@
-import { KunKunSiByte } from './kunkunsi-byte';
+import { KunKunSiByte, KunKunSiPrintLyric } from './kunkunsi-byte';
 import { Note } from './note';
 import { NoteSymbol } from './note-symbol';
 import { SpecialNote } from '../enums/note';
@@ -13,7 +13,7 @@ export class Block {
     }
 
     set lyric(lyric: string) {
-        if (this.kunkunsi instanceof Note) {
+        if (this.kunkunsi instanceof Note || this.kunkunsi instanceof KunKunSiPrintLyric) {
             this._lyric = lyric;
         }
     }
@@ -63,6 +63,19 @@ export class Block {
         }
 
         return [];
+    }
+
+    get type(): string {
+        if (this.kunkunsi instanceof Note) {
+            return 'Note';
+        }
+        if (this.kunkunsi instanceof NoteSymbol) {
+            return 'NoteSymbol';
+        }
+        if (this.kunkunsi instanceof KunKunSiPrintLyric) {
+            return 'Lyrics';
+        }
+        return 'undefined';
     }
 
     public setShift(byte: number): void {

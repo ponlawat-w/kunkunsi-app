@@ -3,6 +3,10 @@
     cursor: text;
 }
 
+.editor.not-focus:hover {
+    background-color: #ededed;
+}
+
 #pointer {
     position: absolute;
     background-color: #0000ff;

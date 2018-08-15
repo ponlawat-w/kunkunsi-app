@@ -1,0 +1,25 @@
+<div class="description no-print"
+  [class.no-description]="!editorService.description">
+  <h3 *ngIf="editorService.description" (click)="startEditing();">{{editorService.description}}</h3>
+  <span *ngIf="!editorService.description" (click)="startEditing();">唄の説明なし<br>（チューニング・歌手名など）</span>
+  <button class="btn btn-sm btn-outline-info" (click)="startEditing();">編集</button>
+</div>
+<ng-template #editDescription let-dismiss="dismiss">
+  <div class="modal-header">
+    唄の説明文編集
+    <button type="button" class="close" (click)="dismiss();">×</button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submitEdit();">
+      <div class="form-group">
+        <label for="description-textarea">唄の説明文：</label>
+        <textarea [(ngModel)]="description" placeholder="唄の説明文・チューニング・歌手などここ入れてください。"
+          name="description-textarea" class="form-control" autofocus></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="dismiss();" class="btn btn-sm btn-outline-light text-dark">キャンセル</button>
+    <button type="button" (click)="submitEdit();" class="btn btn-primary">保存</button>
+  </div>
+</ng-template>

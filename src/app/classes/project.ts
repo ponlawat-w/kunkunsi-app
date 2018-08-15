@@ -37,9 +37,14 @@ export class Project {
     public title: string;
     public blocks: Block[];
 
+    public description: string;
+    public additionalLyrics: string;
+
     public static fromJsonObject(jsonObj: any): Project {
         const proj = new Project();
         proj.title = jsonObj.title ? jsonObj.title : null;
+        proj.description = jsonObj.description ? jsonObj.description : null;
+        proj.additionalLyrics = jsonObj.additionalLyrics ? jsonObj.additionalLyrics : null;
         jsonObj.blocks.forEach(blockObj => {
             const byte = blockObj.kunkunsi.value;
             const block = new Block();
@@ -60,6 +65,8 @@ export class Project {
     constructor() {
         this.title = '';
         this.blocks = [];
+        this.description = '';
+        this.additionalLyrics = '';
     }
 
     public isWordBreak(index: number): boolean {

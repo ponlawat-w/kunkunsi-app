@@ -1,0 +1,17 @@
+.additional-lyrics {
+    white-space: pre-line;
+    margin: 5px;
+    font-size: 22px;
+}
+
+.additional-lyrics div:hover, .additional-lyrics span:hover {
+    background-color: #ededed;
+}
+
+.no-lyrics {
+    color: #aaaaaa;
+}
+
+.lyrics-dialog .modal-dialog {
+    width: 90%;
+}

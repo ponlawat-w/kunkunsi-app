@@ -5,6 +5,7 @@ import { Block } from '../../../classes/block';
 import { Note } from '../../../classes/note';
 import { SpecialNote } from '../../../enums/note';
 import { NoteSymbol } from '../../../classes/note-symbol';
+import { KunKunSiPrintLyric } from '../../../classes/kunkunsi-byte';
 
 @Component({
   selector: 'app-print-vertical',
@@ -21,6 +22,14 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
   public JSON = JSON;
 
   constructor(public editorService: EditorService) { }
+
+  public get title(): string {
+    return this.editorService.title;
+  }
+
+  public get description(): string {
+    return this.editorService.description;
+  }
 
   public get project(): Project {
     return this.editorService.project;
@@ -39,7 +48,20 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
   }
 
   public get pageRange(): number[] {
-    return this.range(0, this.pages);
+    return this.range(0, this.pages ? this.pages : 1);
+  }
+
+  public pageFullWidth(page: number): string {
+    return page.toString(10).replace('0', '０')
+      .replace('1', '１')
+      .replace('2', '２')
+      .replace('3', '３')
+      .replace('4', '４')
+      .replace('5', '５')
+      .replace('6', '６')
+      .replace('7', '７')
+      .replace('8', '８')
+      .replace('9', '９');
   }
 
   public range(from: number, to: number): number[] {
@@ -51,8 +73,8 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
   }
 
   public lineRange(page: number): number[] {
-    const startPage = page ? page * this.linePerPage - 1 : 0;
-    const endPage = startPage + this.linePerPage - 1;
+    const startPage = page ? page * this.linePerPage : 0;
+    const endPage = startPage + this.linePerPage;
     return this.range(startPage, endPage);
   }
 
@@ -87,6 +109,19 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
         indexOfLine = 0;
         currentLine++;
       }
+    });
+
+    if (this.lines[currentLine]) {
+      currentLine++;
+    }
+
+    const lyricsLine = this.project.additionalLyrics.split('\n\n');
+    lyricsLine.forEach(lyrics => {
+      const block = new Block(new KunKunSiPrintLyric());
+      block.lyric = lyrics;
+
+      this.indices[currentLine] = [0];
+      this.lines[currentLine++] = [block];
     });
   }
 
