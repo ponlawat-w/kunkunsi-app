@@ -1,7 +1,7 @@
 import { Block } from './block';
 import { Note } from './note';
 import { NoteSymbol } from './note-symbol';
-import { SpecialNote, GeneralNote } from '../enums/note';
+import { SpecialNote, GeneralNote, NoteMark } from '../enums/note';
 
 const symbolWithOwnBlock = [
     SpecialNote.ArrowRepeatBegin,
@@ -202,7 +202,10 @@ export class Project {
     }
 
     public isSpace(index: number): boolean {
-        return this.validIndex(index) ? this.blocks[index].kunkunsi.value === GeneralNote.Space : false;
+        return this.validIndex(index) ?
+            this.blocks[index].kunkunsi.value === GeneralNote.Space
+                || this.blocks[index].kunkunsi.value === (GeneralNote.Space | NoteMark.Diminutive)
+            : false;
     }
 
     public lyricable(index: number): boolean {
