@@ -7,7 +7,7 @@ import { SpecialNote, GeneralNote, NoteMark, NoteShift } from '../enums/note';
 import { AppService } from './app.service';
 import { NoteSymbol } from '../classes/note-symbol';
 import { ViewService } from './view.service';
-import { EventEmitter } from '../../../node_modules/protractor';
+import { EventEmitter } from 'protractor';
 import { HistoryService } from './history.service';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
-import { NgbModalRef, NgbModal } from '../../../../node_modules/@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-additional-lyrics',

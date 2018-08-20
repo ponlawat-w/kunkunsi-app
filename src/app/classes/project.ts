@@ -216,6 +216,8 @@ export class Project {
         const newProj = new Project();
         newProj.title = this.title;
         newProj.blocks = this.blocks.map(block => block.clone());
+        newProj.description = this.description;
+        newProj.additionalLyrics = this.additionalLyrics;
         return newProj;
     }
 }
