@@ -2,12 +2,12 @@
   <div class="page" [class.first-page]="page == 0" [class.next-page]="page > 0">
     <ng-container>
       <h1>{{title ? title : '&nbsp;'}}</h1>
-      <div class="description">
-        ページ{{pageFullWidth(page + 1)}}
-        <span *ngIf="description && page == 0">・</span>
-      </div>
-      <div class="description" *ngIf="page == 0">
+      <div class="description description-text" *ngIf="page == 0">
         {{description}}
+      </div>
+      <div class="description">
+        <span *ngIf="description && page == 0">・</span>
+        ページ{{pageFullWidth(page + 1)}}
       </div>
     </ng-container>
     <ng-container *ngFor="let line of lineRange(page)">
@@ -15,7 +15,7 @@
         <ng-container *ngFor="let block of lines[line]; let i = index">
           <app-block *ngIf="block.type != 'Lyrics'"
             [object]="block" [index]="indices[line][i]"></app-block>
-          <div *ngIf="block.type == 'Lyrics'" class="lyric">
+          <div *ngIf="block.type == 'Lyrics'" class="lyric" [style.font-size]="lyricSize + 'em'">
             {{block.lyric}}
           </div>
         </ng-container>

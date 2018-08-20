@@ -22,10 +22,13 @@ h1 {
     padding: 1mm 0;
 }
 
+.description-text {
+    font-size: 1.8em;
+}
+
 .lyric {
     white-space: pre-line;
     margin: 0 3mm;
-    font-size: 1.5em;
 }
 
 @media print {

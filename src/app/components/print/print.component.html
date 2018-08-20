@@ -1,16 +1,44 @@
-<div id="print-settings" *ngIf="appService.isVertical();" class="no-print">
+<div id="print-settings" class="no-print">
   <form (ngSubmit)="print();">
     <div class="row">
+      <div class="container-fluid">
+        <h2>設定</h2>
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="appService.isVertical();">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="blockPerLine">行の文字数：</label>
+            <input name="blockPerLine" type="number" [(ngModel)]="blockPerLine" min="1" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="linePerPage">ページの行数：</label>
+            <input name="linePerPage" type="number" [(ngModel)]="linePerPage" min="1" class="form-control">
+          </div>
+        </div>
+      </ng-container>
       <div class="col-md-3">
         <div class="form-group">
-          <label for="blockPerLine">行の文字数：</label>
-          <input name="blockPerLine" type="number" [(ngModel)]="blockPerLine" class="form-control">
+          <label for="lyricSize">歌詞文字のサイズ：</label>
+          <input name="lyricSize" type="number" [(ngModel)]="lyricSize" min="0" step="0.1" class="form-control">
         </div>
       </div>
       <div class="col-md-3">
-        <div class="form-group">
-          <label for="linePerPage">ページの行数：</label>
-          <input name="linePerPage" type="number" [(ngModel)]="linePerPage" class="form-control">
+        <p style="margin-bottom: 8px;">紙の向き：</p>
+        <div class="btn-group btn-group-justified">
+            <button class="btn" type="button" (click)="setOrientation(paperOrientationEnum.Portrait);"
+              [class.btn-primary]="orientation == paperOrientationEnum.Portrait"
+              [class.btn-outline-primary]="orientation != paperOrientationEnum.Portrait">
+              縦
+            </button>
+          <button class="btn" type="button" (click)="setOrientation(paperOrientationEnum.Landscape);"
+            [class.btn-primary]="orientation == paperOrientationEnum.Landscape"
+            [class.btn-outline-primary]="orientation != paperOrientationEnum.Landscape">
+            横
+          </button>
         </div>
       </div>
     </div>
@@ -20,17 +48,12 @@
     </div>
   </form>
 </div>
-<div class="container-fluid padding-top no-print" *ngIf="appService.isHorizontal();">
-    <div class="text-right">
-      <a href="#" (click)="appService.printing = false;">キャンセル</a>
-      <button type="button" (click)="print();" class="btn btn-lg btn-primary">印刷</button>
-    </div>
-</div>
 <hr class="no-print">
 <div class="container-fluid no-print">
-  <h1>印刷プレビュー</h1>
+  <h2>プレビュー</h2>
 </div>
 <app-print-vertical
-  *ngIf="appService.isVertical()"
+  *ngIf="appService.isVertical()" [lyricSize]="lyricSize"
   [blockPerLine]="blockPerLine" [linePerPage]="linePerPage"></app-print-vertical>
-<app-print-horizontal *ngIf="appService.isHorizontal()"></app-print-horizontal>
+<app-print-horizontal
+  *ngIf="appService.isHorizontal()" [lyricSize]="lyricSize"></app-print-horizontal>

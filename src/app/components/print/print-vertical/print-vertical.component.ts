@@ -17,6 +17,8 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
   @Input() blockPerLine: number;
   @Input() linePerPage: number;
 
+  @Input() lyricSize: number;
+
   private lines: Block[][];
   private indices: number[][];
   public JSON = JSON;

@@ -9,8 +9,7 @@ import { Block } from '../../../classes/block';
 })
 export class PrintHorizontalComponent implements OnInit {
 
-  @Input() sizePerLine: number;
-  @Input() sizePerPage: number;
+  @Input() lyricSize: number;
 
   public get title(): string {
     return this.editorService.title;

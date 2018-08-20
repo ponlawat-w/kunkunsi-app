@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppService } from './app.service';
-import { LayoutAlignment } from '../enums/layout-alignment';
+import { PaperOrientation } from '../enums/layout-alignment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,6 @@ export class ViewService {
 
   constructor(public appService: AppService) {
     this.createPrintStyleElement();
-    this.setPrintStyle(this.appService.layoutAlignment);
-    this.appService.layoutChange.subscribe(layout => {
-      this.setPrintStyle(layout);
-    });
   }
 
   public get editorElement(): HTMLElement {
@@ -47,8 +43,8 @@ export class ViewService {
     $head.appendChild($style);
   }
 
-  public setPrintStyle(layout: LayoutAlignment): void {
-    const size = layout === LayoutAlignment.Vertical ? 'landscape' : 'portrait';
+  public setPrintStyle(orientation: PaperOrientation): void {
+    const size = orientation === PaperOrientation.Portrait ? 'portrait' : 'landscape';
     if (this.printStyleElement) {
       this.printStyleElement.innerHTML = `@media print { @page {size: ${size};}}`;
     }
