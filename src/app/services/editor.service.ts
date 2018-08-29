@@ -233,9 +233,12 @@ export class EditorService {
     }
 
     if (event.ctrlKey) {
-      switch (event.key) {
-        case 'z': this.undo(); return true;
-        case 'x': this.redo(); return true;
+      if (event.key === 'z') {
+        this.undo();
+        return true;
+      } else if (event.key === 'y') {
+        this.redo();
+        return true;
       }
     }
 
