@@ -117,7 +117,7 @@ export class PrintVerticalComponent implements OnInit, OnChanges {
       currentLine++;
     }
 
-    const lyricsLine = this.project.additionalLyrics.split('\n\n');
+    const lyricsLine = this.project.additionalLyrics ? this.project.additionalLyrics.split('\n\n') : [];
     lyricsLine.forEach(lyrics => {
       const block = new Block(new KunKunSiPrintLyric());
       block.lyric = lyrics;
