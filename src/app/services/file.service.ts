@@ -5,7 +5,7 @@ import { SpecialNote } from '../enums/note';
 import { NoteSymbol } from '../classes/note-symbol';
 import { EditorService } from './editor.service';
 
-interface FileReaderEventTarget extends EventTarget {
+export interface FileReaderEventTarget extends EventTarget {
   result: Uint8Array;
 }
 

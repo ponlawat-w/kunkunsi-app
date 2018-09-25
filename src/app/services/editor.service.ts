@@ -7,7 +7,6 @@ import { SpecialNote, GeneralNote, NoteMark, NoteShift } from '../enums/note';
 import { AppService } from './app.service';
 import { NoteSymbol } from '../classes/note-symbol';
 import { ViewService } from './view.service';
-import { EventEmitter } from 'protractor';
 import { HistoryService } from './history.service';
 
 @Injectable({
@@ -127,8 +126,7 @@ export class EditorService {
     const json = localStorage.getItem('project');
     if (json) {
       const obj = JSON.parse(json);
-      if (obj && (obj.title || obj.blocks.length) &&
-        confirm(`前回の工工四の「${obj.title}」を続けますか。`)) {
+      if (obj && (obj.title || obj.blocks.length)) {
         this.project = Project.fromJsonObject(obj);
         return true;
       }

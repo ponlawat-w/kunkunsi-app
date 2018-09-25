@@ -13,6 +13,11 @@
           ＰＣから読込
         </button>
       </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-dark" (click)="openGithubDialog();">
+          GitHubから読込
+        </button>
+      </li>
     </ng-container>
     <ng-container *ngIf="appService.printing">
       <li class="nav-item">
@@ -46,3 +51,5 @@
     </li>
   </ul>
 </nav>
+
+<app-github-importer [emitter]="githubDialogEmitter"></app-github-importer>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import { LayoutAlignment } from '../../enums/layout-alignment';
 import { EditorService } from '../../services/editor.service';
@@ -11,6 +11,8 @@ import { FileService } from '../../services/file.service';
 })
 export class NavbarComponent implements OnInit {
 
+  githubDialogEmitter: EventEmitter<null>;
+
   constructor(
     public appService: AppService,
     public editorService: EditorService,
@@ -18,6 +20,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.githubDialogEmitter = new EventEmitter();
   }
 
   public setVertical(): void {
@@ -32,6 +35,10 @@ export class NavbarComponent implements OnInit {
     if (!this.editorService.project.blocks.length || confirm('新しい工工四を作成しますか。')) {
       this.editorService.newProject();
     }
+  }
+
+  public openGithubDialog(): void {
+    this.githubDialogEmitter.emit();
   }
 
   public print(): void {

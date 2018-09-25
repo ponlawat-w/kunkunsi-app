@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,6 +17,7 @@ import { PrintHorizontalComponent } from './components/print/print-horizontal/pr
 import { PrintComponent } from './components/print/print.component';
 import { DescriptionComponent } from './components/description/description.component';
 import { AdditionalLyricsComponent } from './components/additional-lyrics/additional-lyrics.component';
+import { GithubImporterComponent } from './components/github-importer/github-importer.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,14 @@ import { AdditionalLyricsComponent } from './components/additional-lyrics/additi
     PrintHorizontalComponent,
     PrintComponent,
     DescriptionComponent,
-    AdditionalLyricsComponent
+    AdditionalLyricsComponent,
+    GithubImporterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
