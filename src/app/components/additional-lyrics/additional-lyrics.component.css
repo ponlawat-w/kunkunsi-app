@@ -4,6 +4,10 @@
     font-size: 22px;
 }
 
+.additional-lyrics.vertical {
+    margin-left: 50px;
+}
+
 .additional-lyrics div:hover, .additional-lyrics span:hover {
     background-color: #ededed;
 }

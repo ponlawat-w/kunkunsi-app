@@ -90,13 +90,13 @@ export class EditorService {
   }
 
   set pointer(position: number) {
-    if (position < 0) {
-      this._pointer = 0;
+    if (position < -1) {
+      this._pointer = -1;
       return;
     }
 
-    if (position > this.project.blocks.length) {
-      this._pointer = this.project.blocks.length;
+    if (position > this.project.blocks.length - 1) {
+      this._pointer = this.project.blocks.length - 1;
       return;
     }
 
@@ -240,6 +240,8 @@ export class EditorService {
       }
     }
 
+    const pointToLast = this.pointer === this.blocks.length - 1;
+
     const key = event.key.toLowerCase();
     if (typeof this.keyMap[key] !== 'undefined') {
       let note = this.keyMap[key];
@@ -250,15 +252,20 @@ export class EditorService {
         this.keyWithLetter = true;
         note |= NoteMark.Swing;
       }
-      this.project.insertNote(new Note(note), this.pointer);
-      this.pointer++;
+      this.project.insertNote(new Note(note), ++this.pointer);
+      if (pointToLast) {
+        this.pointer++;
+      }
       this.pushHistory();
       return true;
     }
 
     if (typeof this.specialMap[event.key] !== 'undefined') {
       const mark = this.specialMap[event.key];
-      this.project.insertSymbol(new NoteSymbol(mark), this.pointer);
+      this.project.insertSymbol(new NoteSymbol(mark), ++this.pointer);
+      if (pointToLast) {
+        this.pointer++;
+      }
       this.pointer++;
       if (event.shiftKey) {
         this.keyWithLetter = true;
@@ -298,15 +305,19 @@ export class EditorService {
     }
 
     if (event.keyCode === KEY_CODE.SPACEBAR) {
-      this.project.insertNote(new Note(GeneralNote.Space), this.pointer);
-      this.pointer++;
+      this.project.insertNote(new Note(GeneralNote.Space), ++this.pointer);
+      if (pointToLast) {
+        this.pointer++;
+      }
       this.pushHistory();
       return true;
     }
 
     if (event.keyCode === KEY_CODE.ENTER) {
-      this.project.insertSymbol(new NoteSymbol(SpecialNote.NewLine), this.pointer);
-      this.pointer++;
+      this.project.insertSymbol(new NoteSymbol(SpecialNote.NewLine), ++this.pointer);
+      if (pointToLast) {
+        this.pointer++;
+      }
       this.pushHistory();
       return true;
     }
@@ -316,23 +327,24 @@ export class EditorService {
         let wordBreak = this.project.previousWordBreakIndexFrom(this.pointer) + 1;
         wordBreak = wordBreak === this.pointer ? wordBreak - 1 : wordBreak;
         this.project.deleteSpan(wordBreak, this.pointer);
-        this.pointer = wordBreak;
+        this.pointer = wordBreak - 1;
         this.pushHistory();
         return true;
       }
-      this.project.deleteOne(--this.pointer);
+      this.project.deleteOne(this.pointer--);
       this.pushHistory();
       return true;
     }
 
     if (event.keyCode === KEY_CODE.DELETE) {
       if (event.ctrlKey) {
-        const wordBreak = this.project.nextWordBreakIndexFrom(this.pointer);
-        this.project.deleteSpan(this.pointer, wordBreak);
+        let wordBreak = this.project.nextWordBreakIndexFrom(this.pointer);
+        wordBreak = wordBreak === this.pointer + 1 ? this.project.nextWordBreakIndexFrom(wordBreak) : wordBreak;
+        this.project.deleteSpan(this.pointer + 1, wordBreak - 1);
         this.pushHistory();
         return true;
       }
-      this.project.deleteOne(this.pointer);
+      this.project.deleteOne(this.pointer + 1);
       this.pushHistory();
       return true;
     }
@@ -341,6 +353,9 @@ export class EditorService {
       this.pointer = this.project.previousLineBreakIndexFrom(this.pointer);
       if (this.pointer > 0) {
         this.pointer++;
+      }
+      if (this.pointer === 0) {
+        this.pointer--;
       }
       return true;
     }

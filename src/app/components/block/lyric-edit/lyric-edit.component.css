@@ -9,5 +9,6 @@
 }
 
 .lyric-edit-container form input {
+    writing-mode: horizontal-tb;
     z-index: 1000;
 }

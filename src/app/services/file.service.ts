@@ -27,10 +27,15 @@ export class FileService {
     });
 
     const url = window.URL.createObjectURL(blob);
+
     const $a = document.createElement('a');
     $a.setAttribute('href', url);
-    $a.setAttribute('download', this.editorService.title + '.kks');
+    $a.setAttribute('download',
+      this.editorService.title.replace(/\[(.+?)\]\((.+?)\)/g, '$1')
+      + '.kks');
+    document.body.appendChild($a);
     $a.click();
+    document.body.removeChild($a);
     window.URL.revokeObjectURL(url);
     $a.remove();
   }

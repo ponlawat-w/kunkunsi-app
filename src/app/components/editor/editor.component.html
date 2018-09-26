@@ -6,10 +6,11 @@
     (focus)="onfocus();" (blur)="onblur();"
     (keydown)="keydown($event);" (keyup)="keyup($event);"
     tabindex="0">
+    <app-block *ngIf="editorService.focus && editorService.pointer == -1"
+        [object]="null" [index]="-1"></app-block>
     <app-block *ngFor="let block of editorService.blocks; let i = index"
         [object]="block" [index]="i"></app-block>
-    <div id="pointer" class="no-print" *ngIf="editorService.focus"
-        [hidden]="noPointer"
+    <!-- <div id="pointer" class="no-print" *ngIf="editorService.focus && !noPointer"
         [style.top]="pointerPositionCss.top"
-        [style.left]="pointerPositionCss.left"></div>
+        [style.left]="pointerPositionCss.left"></div> -->
 </div>

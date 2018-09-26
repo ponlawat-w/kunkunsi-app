@@ -17,6 +17,11 @@
     right: 2px;
 }
 
+.block.block-note.horizontal.diminutive.diminutive-single .note,
+.block.block-note.horizontal.diminutive.diminutive-single .lyric {
+    position: absolute;
+}
+
 .block.block-note.horizontal.diminutive .note,
 .block.block-note.horizontal.diminutive .lyric {
     width: 40px;
@@ -74,13 +79,27 @@
     height: 69px;
 }
 
+.block.horizontal.block-note.note-pointed .note {
+    border-right: 4px solid #0000ff;
+}
+
+.block.horizontal.block-note.first-note-pointed .note {
+    background-color: rgba(0, 0, 255, 0.25);
+    border-left: 4px solid #0000ff;
+}
+
+.block.horizontal.block-newline.newline-pointed {
+    width: 90%;
+    border-top: 1px solid #0000ff;
+}
+
 .repeat.horizontal.repeat-begin .img-container {
     top: -68px;
     left: 10px;
 }
 
 .repeat.horizontal.repeat-end .img-container {
-    top: -68px;
+    top: -69px;
     left: -21px;
 }
 

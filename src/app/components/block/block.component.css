@@ -45,20 +45,20 @@
 
 .block.block-note.diminutive.diminutive-single .lyric {
     border: none;
-    position: absolute;
+    position: relative;
 }
 
 .block.block-note.diminutive.diminutive-single .note {
-    position: absolute;
+    position: relative;
 }
 
 .block.block-note.next-single-dim .note, .block.block-note.prev-single-dim .note {
     font-size: 24px;
 }
 
-.block.block-note.diminutive.diminutive-single.diminutive-single-pointed .note {
+/* .block.block-note.diminutive.diminutive-single.diminutive-single-pointed .note {
     background-color: rgba(0, 0, 255, 0.25);
-}
+} */
 
 .block.block-note.diminutive.diminutive-single * {
     border: none;
@@ -73,11 +73,15 @@
     font-size: 24px;
 }
 
+.block.block-note.note-pointed .note {
+    background-color: rgba(0, 0, 255, 0.25);
+}
+
 .repeat {
     display: inline-block;
     position: relative;
     padding: 0;
-    z-index: -1;
+    z-index: 0;
 }
 
 .repeat .img-container {

@@ -1,5 +1,5 @@
-<div class="additional-lyrics">
-  <div *ngIf="editorService.additionalLyrics" (click)="startEditing();">{{editorService.additionalLyrics}}</div>
+<div class="additional-lyrics" [class.horizontal]="appService.isHorizontal()" [class.vertical]="appService.isVertical()">
+  <div *ngIf="editorService.additionalLyrics" (click)="startEditing();" [innerHtml]="editorService.additionalLyrics | toRuby"></div>
   <span *ngIf="!editorService.additionalLyrics" (click)="startEditing();" class="no-lyrics">追加歌詞ありません。</span>
   <button type="button" (click)="startEditing();" class="btn btn-sm btn-outline-secondary">編集</button>
 </div>

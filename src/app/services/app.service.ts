@@ -11,7 +11,7 @@ export class AppService {
   private layout: LayoutAlignment;
 
   constructor() {
-    this.print = false;
+    this.printing = false;
 
     const layout = parseInt(localStorage.getItem('layout'), 10);
     if (layout) {

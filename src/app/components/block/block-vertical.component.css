@@ -44,6 +44,11 @@
     left: 25px;
 }
 
+.block.block-note.vertical.diminutive.diminutive-multi .note-mark {
+    top: 7px;
+    left: 16px;
+}
+
 .block.block-note.vertical.diminutive.diminutive-single .note-shift {
     bottom: -3px;
     right: -8px;
@@ -52,7 +57,7 @@
 
 .block.block-note.vertical.diminutive.diminutive-single .lyric {
     top: -22px;
-    left: 45px;
+    /* left: 45px; */
 }
 
 .block.block-note.vertical.next-single-dim .note {
@@ -72,6 +77,20 @@
     width: 69px;
 }
 
+.block.vertical.block-note.note-pointed .note {
+    border-bottom: 4px solid #0000ff;
+}
+
+.block.vertical.block-note.first-note-pointed .note {
+    background-color: rgba(0, 0, 255, 0.25);
+    border-top: 4px solid #0000ff;
+}
+
+.block.vertical.block-newline.newline-pointed {
+    height: 90%;
+    border-right: 1px solid #0000ff;
+}
+
 .repeat.vertical.repeat-begin .img-container {
     top: 0px;
     left: 36px;
@@ -79,10 +98,22 @@
 
 .repeat.vertical.repeat-end .img-container {
     top: -30px;
-    left: 34px;
+    left: 36px;
 }
 
 .repeat.vertical.mark-empty .img-container {
     top: 0px;
     left: -14px;
+}
+
+@-moz-document url-prefix() {
+    .repeat.vertical.repeat-begin .img-container {
+        left: 6px !important;
+    }
+    .repeat.vertical.repeat-end .img-container {
+        left: 6px !important;
+    }
+    .block.block-note.vertical.block.block-note.vertical.diminutive.diminutive-multi .note {
+        margin-left: -3px !important;
+    }
 }

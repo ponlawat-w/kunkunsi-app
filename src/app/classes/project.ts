@@ -151,8 +151,8 @@ export class Project {
     }
 
     public deleteSpan(from: number, to: number): void {
-        if (this.validIndex(from) && to >= from) {
-            this.blocks.splice(from, to - from);
+        if (this.validIndex(from) && this.validIndex(to) && to >= from) {
+            this.blocks.splice(from, to - from + 1);
         }
     }
 

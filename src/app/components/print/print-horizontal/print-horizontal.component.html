@@ -1,8 +1,8 @@
 <div class="print">
-  <h1 class="text-center">{{title}}</h1>
-  <div *ngIf="editorService.description" class="description text-center">{{editorService.description}}</div>
+  <h1 [innerHtml]="title | toRuby" class="text-center"></h1>
+  <div *ngIf="editorService.description" class="description text-center" [innerHtml]="editorService.description | toRuby"></div>
   <app-block *ngFor="let block of blocks; let i = index" [object]="block" [index]="i"></app-block>
-  <p *ngFor="let lyrics of additionalLyrics" class="lyric" [style.font-size]="lyricSize + 'em'">
-    {{lyrics}}
+  <p *ngFor="let lyrics of additionalLyrics" class="lyric" [style.font-size]="lyricSize + 'em'"
+    [innerHtml]="lyrics | toRuby">
   </p>
 </div>

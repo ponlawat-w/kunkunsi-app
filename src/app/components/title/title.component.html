@@ -1,5 +1,5 @@
 <h1 [class.untitled]="unititled">
-  <span (click)="startEditing();">{{editorService.title}}</span>
+  <span (click)="startEditing();" [innerHtml]="editorService.title | toRuby"></span>
   <button class="btn edit-btn btn-sm btn-outline-info no-print" (click)="startEditing();">編集</button>
 </h1>
 <ng-template #editDialog let-dismiss="dismiss">

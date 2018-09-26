@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-additional-lyrics',
@@ -15,6 +16,7 @@ export class AdditionalLyricsComponent implements OnInit {
 
   constructor(
     public editorService: EditorService,
+    public appService: AppService,
     public modalService: NgbModal
   ) { }
 

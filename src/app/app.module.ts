@@ -18,6 +18,7 @@ import { PrintComponent } from './components/print/print.component';
 import { DescriptionComponent } from './components/description/description.component';
 import { AdditionalLyricsComponent } from './components/additional-lyrics/additional-lyrics.component';
 import { GithubImporterComponent } from './components/github-importer/github-importer.component';
+import { ToRubyPipe } from './pipes/to-ruby.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { GithubImporterComponent } from './components/github-importer/github-imp
     PrintComponent,
     DescriptionComponent,
     AdditionalLyricsComponent,
-    GithubImporterComponent
+    GithubImporterComponent,
+    ToRubyPipe
   ],
   imports: [
     BrowserModule,

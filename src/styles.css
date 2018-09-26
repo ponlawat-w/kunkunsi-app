@@ -8,7 +8,11 @@ body {
 }
 
 body.vertical.edit {
-    overflow-y: hidden;
+    overflow: hidden;
+}
+
+body.horizontal {
+    margin-bottom: 80px;
 }
 
 @media print {

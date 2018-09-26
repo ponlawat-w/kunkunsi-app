@@ -4,7 +4,7 @@ import { AppService } from '../../services/app.service';
 import { EditorService } from '../../services/editor.service';
 import { Note } from '../../classes/note';
 import { NoteSymbol } from '../../classes/note-symbol';
-import { SpecialNote } from '../../enums/note';
+import { SpecialNote, NoteMark } from '../../enums/note';
 import { ViewService } from '../../services/view.service';
 
 @Component({
@@ -51,13 +51,22 @@ export class BlockComponent implements OnInit {
   }
 
   public get blockClass(): string {
-    const classes = this.object.classes;
 
+    let alignmentClass = '';
     if (this.appService.isVertical()) {
-      classes.push('vertical');
+      alignmentClass = 'vertical';
     } else if (this.appService.isHorizontal()) {
-      classes.push('horizontal');
+      alignmentClass = 'horizontal';
     }
+
+    if (!this.object) {
+      return [alignmentClass, 'block', 'block-note', 'first-note-pointed'].join(' ');
+    }
+
+    const classes = this.object.classes;
+    classes.push(alignmentClass);
+
+    const selected = this.editorService.pointer === this.index;
 
     if (this.object.kunkunsi instanceof Note) {
       // Type Note
@@ -68,13 +77,17 @@ export class BlockComponent implements OnInit {
         classes.push('block-last');
       }
 
+      if (this.editorService.focus && selected) {
+        classes.push('note-pointed');
+      }
+
       if (this.editorService.project.isDiminutive(this.index)) {
         classes.push('diminutive');
         if (this.editorService.project.isSingleDiminutive(this.index)) {
           classes.push('diminutive-single');
-          if (this.editorService.focus && this.editorService.pointer === this.index) {
-            classes.push('diminutive-single-pointed');
-          }
+          // if (this.editorService.focus && this.editorService.pointer === this.index) {
+          //   classes.push('diminutive-single-pointed');
+          // }
         } else {
           classes.push('diminutive-multi');
         }
@@ -91,12 +104,14 @@ export class BlockComponent implements OnInit {
       if (this.editorService.project.isEmptyLine(this.index)) {
         classes.push('empty-line');
       } else if (this.editorService.project.isMark(this.index)) {
-        if (this.editorService.focus && this.editorService.pointer === this.index) {
+        if (this.editorService.focus && selected) {
           classes.push('mark-pointed');
         }
         if (this.editorService.project.isEmptyLineTrimmed(this.index)) {
           classes.push('mark-empty');
         }
+      } else if (this.object.kunkunsi.value === SpecialNote.NewLine) {
+        classes.push(selected ? 'newline-pointed' : 'newline-no-pointed');
       }
     }
 

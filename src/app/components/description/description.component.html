@@ -1,6 +1,6 @@
 <div class="description no-print"
   [class.no-description]="!editorService.description">
-  <h3 *ngIf="editorService.description" (click)="startEditing();">{{editorService.description}}</h3>
+  <h3 *ngIf="editorService.description" (click)="startEditing();" innerHtml="editorService.description | toRuby"></h3>
   <span *ngIf="!editorService.description" (click)="startEditing();">唄の説明なし<br>（チューニング・歌手名など）</span>
   <button class="btn btn-sm btn-outline-info" (click)="startEditing();">編集</button>
 </div>

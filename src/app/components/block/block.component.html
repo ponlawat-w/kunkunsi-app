@@ -1,29 +1,38 @@
-<div *ngIf="!markSrc"
-    [class]="blockClass"
-    [attr.data-index]="index"
-    (click)="editorService.pointer = index;">
-    <div class="lyric" *ngIf="object.block"
-        [class.lyric-editing]="lyricBeingEdited"
-        (click)="editLyric();">
-        {{object.lyric ? object.lyric : '&nbsp;'}}
-    </div>
-    <app-lyric-edit *ngIf="object.block && lyricBeingEdited">
-    </app-lyric-edit>
-    <div class="note" *ngIf="object.block">
-        {{object.toString()}}
-        <div *ngIf="object.mark" class="note-mark">
-            {{object.mark}}
+<ng-container *ngIf="object">
+    <div *ngIf="!markSrc"
+        [class]="blockClass"
+        [attr.data-index]="index"
+        [attr.id]="'block-index-' + index"
+        (click)="editorService.pointer = index;">
+        <div class="lyric" *ngIf="object.block"
+            [class.lyric-editing]="lyricBeingEdited"
+            (click)="editLyric();">
+            {{object.lyric ? object.lyric : '&nbsp;'}}
         </div>
-        <div *ngIf="object.shift" class="note-shift">
-            {{object.shift}}
+        <app-lyric-edit *ngIf="object.block && lyricBeingEdited">
+        </app-lyric-edit>
+        <div class="note" *ngIf="object.block">
+            {{object.toString()}}
+            <div *ngIf="object.mark" class="note-mark">
+                {{object.mark}}
+            </div>
+            <div *ngIf="object.shift" class="note-shift">
+                {{object.shift}}
+            </div>
         </div>
     </div>
-</div>
-<div *ngIf="markSrc"
-    [class]="blockClass"
-    [attr.data-index]="index"
-    (click)="editorService.pointer = index;">
-    <div class="img-container">
-        <img *ngIf="markSrc" [src]="markSrc">
+    <div *ngIf="markSrc"
+        [class]="blockClass"
+        [attr.data-index]="index"
+        (click)="editorService.pointer = index;">
+        <div class="img-container">
+            <img *ngIf="markSrc" [src]="markSrc">
+        </div>
     </div>
-</div>
+</ng-container>
+<ng-container *ngIf="!object">
+    <div [class]="blockClass">
+        <div class="lyric">&nbsp;</div>
+        <div class="note"></div>
+    </div>
+</ng-container>

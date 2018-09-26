@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppService } from './app.service';
 import { PaperOrientation } from '../enums/layout-alignment';
+// import { EditorService } from './editor.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +28,12 @@ export class ViewService {
     return document.getElementById('body');
   }
 
-  public get pointerElement(): HTMLElement {
-    return document.getElementById('pointer');
-  }
-
   public get printStyleElement(): HTMLElement {
     return document.getElementById('print-style');
+  }
+
+  public getPointerElement(index: number): HTMLElement {
+    return document.getElementById(`block-index-${index}`);
   }
 
   public createPrintStyleElement(): void {
@@ -68,8 +69,9 @@ export class ViewService {
     return this.inScreen(position.top, position.left);
   }
 
-  public pointerInScreen(): boolean {
-    return this.pointerElement ? this.inScreen(this.pointerElement.offsetTop, this.pointerElement.offsetLeft) : false;
+  public pointerInScreen(index: number): boolean {
+    const element = this.getPointerElement(index);
+    return element ? this.inScreen(element.offsetTop, element.offsetLeft) : false;
   }
 
   public scrollToPosition(position: {top: number, left: number}): void {
@@ -80,14 +82,15 @@ export class ViewService {
     }
   }
 
-  public scrollToPointer(): void {
-    if (!this.pointerElement) {
+  public scrollToPointer(index: number): void {
+    const element = this.getPointerElement(index);
+    if (!element) {
       return;
     }
 
     this.scrollToPosition({
-      top: this.pointerElement.offsetTop,
-      left: this.pointerElement.offsetLeft
+      top: element.offsetTop,
+      left: element.offsetLeft
     });
   }
 

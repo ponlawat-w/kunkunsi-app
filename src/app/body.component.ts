@@ -17,9 +17,13 @@ export class BodyComponent implements OnInit {
   }
 
   onWheel(event: WheelEvent) {
-    if (this.appService.isVertical() && event.deltaY) {
-      this.viewService.bodyElement.scrollLeft -= event.deltaY;
+    if (!this.appService.isVertical() || !event.deltaY) {
+      return;
     }
+
+    const deltaY = event.deltaY;
+    const sign = deltaY / Math.abs(deltaY);
+    this.viewService.bodyElement.scrollLeft -= sign * 100;
   }
 
 }

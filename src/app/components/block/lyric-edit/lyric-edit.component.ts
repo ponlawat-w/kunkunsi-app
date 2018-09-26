@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { KEY_CODE } from '../../../consts/note-key';
 import { EditorService } from '../../../services/editor.service';
+import { ViewService } from '../../../services/view.service';
+import { AppService } from '../../../services/app.service';
 
 @Component({
   selector: 'app-lyric-edit',
@@ -11,16 +13,22 @@ export class LyricEditComponent implements OnInit {
 
   constructor(
     public editorService: EditorService,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    public appService: AppService,
+    public viewService: ViewService
   ) { }
 
   ngOnInit() {
     ((this.elementRef.nativeElement as HTMLElement)
       .getElementsByClassName('lyric-input')[0] as HTMLElement).focus();
+      document.documentElement.scrollTop -= 60;
   }
 
   public focusInput(event: FocusEvent) {
-    (event.target as Element).scrollIntoView();
+    (event.target as Element).scrollIntoView(true);
+    if (this.appService.isHorizontal()) {
+      document.documentElement.scrollTop -= 60;
+    }
   }
 
   public editLyricCancel(): void {
