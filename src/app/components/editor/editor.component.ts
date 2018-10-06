@@ -31,7 +31,8 @@ export class EditorComponent implements OnInit {
   }
 
   public editorClick(event: MouseEvent) {
-    if ((event.target as Element).classList.contains('editor')) {
+    const $target: Element = event.target as Element;
+    if ($target.classList.contains('editor')) {
       this.editorService.pointer = this.editorService.project.blocks.length;
     }
   }

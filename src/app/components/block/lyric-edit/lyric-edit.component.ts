@@ -25,6 +25,7 @@ export class LyricEditComponent implements OnInit {
   }
 
   public focusInput(event: FocusEvent) {
+    this.editorService.focus = true;
     (event.target as Element).scrollIntoView(true);
     if (this.appService.isHorizontal()) {
       document.documentElement.scrollTop -= 60;
@@ -45,6 +46,8 @@ export class LyricEditComponent implements OnInit {
   public editLyricKeyUp(event: KeyboardEvent): void {
     if (event.keyCode === KEY_CODE.ESC) {
       this.editLyricCancel();
+      this.viewService.bodyElement.focus();
+      event.stopPropagation();
     } else if (event.keyCode === KEY_CODE.TAB) {
       this.editLyricCancel();
       if (event.shiftKey) {

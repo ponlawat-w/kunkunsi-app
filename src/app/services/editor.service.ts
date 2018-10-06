@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Project } from '../classes/project';
 import { Block } from '../classes/block';
 import { NOTE_KEY, KEY_CODE, SPECIAL_KEY } from '../consts/note-key';
@@ -180,14 +180,17 @@ export class EditorService {
   }
 
   public editNextLyric(): void {
-    do {
+    while (this.project.validIndex(this.pointer + 1)) {
       this.pointer++;
       if (this.project.lyricable(this.pointer)) {
         this.editLyricStart(this.pointer);
         return;
       }
-    } while (this.project.validIndex(this.pointer));
-    this.lyricEditIndex = this.project.blocks.length;
+    }
+
+    this.editLyricStop();
+    this.focus = false;
+    this.viewService.editorElement.blur();
   }
 
   public editPreviousLyric(): void {
@@ -415,6 +418,12 @@ export class EditorService {
         }
         return true;
       }
+    }
+
+    if (event.keyCode === KEY_CODE.ESC) {
+      this.focus = false;
+      this.viewService.editorElement.blur();
+      return false;
     }
 
     return false;

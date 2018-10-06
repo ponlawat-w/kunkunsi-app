@@ -32,6 +32,10 @@ export class ViewService {
     return document.getElementById('print-style');
   }
 
+  public get additionalLyricElement(): HTMLElement {
+    return document.getElementById('additional-lyrics');
+  }
+
   public getPointerElement(index: number): HTMLElement {
     return document.getElementById(`block-index-${index}`);
   }
@@ -78,7 +82,8 @@ export class ViewService {
     if (this.appService.isHorizontal()) {
       this.bodyElement.scrollTop = position.top - 70;
     } else if (this.appService.isVertical()) {
-      this.bodyElement.scrollLeft = position.left - 70;
+      this.bodyElement.scrollLeft = this.bodyElement.scrollWidth;
+      this.bodyElement.scrollLeft += position.left - 100;
     }
   }
 
