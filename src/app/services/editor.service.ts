@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Project } from '../classes/project';
 import { Block } from '../classes/block';
 import { NOTE_KEY, KEY_CODE, SPECIAL_KEY } from '../consts/note-key';
@@ -8,6 +8,9 @@ import { AppService } from './app.service';
 import { NoteSymbol } from '../classes/note-symbol';
 import { ViewService } from './view.service';
 import { HistoryService } from './history.service';
+import { HttpClient } from '@angular/common/http';
+import { FileReaderEventTarget } from './file.service';
+import { Converter } from '../classes/converter';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +33,8 @@ export class EditorService {
   constructor(
     public appService: AppService,
     public viewService: ViewService,
-    public historyService: HistoryService
+    public historyService: HistoryService,
+    public http: HttpClient
   ) {
     this.focus = false;
     this.project = new Project();
@@ -134,6 +138,18 @@ export class EditorService {
     }
 
     return false;
+  }
+
+  public loadData(data: Blob): void {
+    const reader = new FileReader();
+    reader.onload = event => {
+      const target: FileReaderEventTarget = event.target as FileReaderEventTarget;
+      this.newProject(false);
+      this.project = Converter.bytesToProject(new Uint8Array(target.result));
+      this.pointer = 0;
+      this.pushHistory();
+    };
+    reader.readAsArrayBuffer(data);
   }
 
   public pushHistory(): void {

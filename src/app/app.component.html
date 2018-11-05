@@ -1,3 +1,4 @@
 <app-navbar></app-navbar>
 <app-body *ngIf="!appService.printing"></app-body>
 <app-print *ngIf="appService.printing"></app-print>
+<app-spinner *ngIf="loading"></app-spinner>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, EventEmitter } from '@angular/core
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
-import { FileService, FileReaderEventTarget } from '../../services/file.service';
+import { FileService } from '../../services/file.service';
 import { EditorService } from '../../services/editor.service';
 
 @Component({
@@ -77,20 +77,23 @@ export class GithubImporterComponent implements OnInit {
     }
   }
 
+  public copyUrl(event: Event, item: FileItem) {
+    const url = `${location.href}github/${this.username}/${this.repositoryName}/master/${item.path}`;
+    document.addEventListener('copy', (clipboardEvent: ClipboardEvent) => {
+      clipboardEvent.clipboardData.setData('text/plain', url);
+      clipboardEvent.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+    event.stopPropagation();
+  }
+
   public loadFile(item: FileItem) {
     this.loading = true;
     this.http.get(item.download_url, { responseType: 'blob' })
       .subscribe(data => {
-        const reader = new FileReader();
-        reader.onload = event => {
-          const target: FileReaderEventTarget = event.target as FileReaderEventTarget;
-          this.editorService.newProject(false);
-          this.editorService.project = this.fileService.bytesToProject(new Uint8Array(target.result));
-          this.editorService.pointer = 0;
-          this.editorService.pushHistory();
-          this.modalRef.dismiss();
-        };
-        reader.readAsArrayBuffer(data);
+        this.editorService.loadData(data);
+        this.modalRef.dismiss();
       }, (err: HttpErrorResponse) => {
         this.loading = false;
         this.error = `${err.status} - ${err.statusText}`;

@@ -61,10 +61,15 @@
               <a href="javascript:void(0);" (click)="goUp()" *ngIf="paths.length" class="list-group-item">
                 ← 戻る
               </a>
-              <a *ngFor="let item of items" href="javascript:void(0);" (click)="access(item);" class="list-group-item">
+              <a *ngFor="let item of items" href="javascript:void(0);" (click)="access(item);"
+                title="この工工四を開く" class="list-group-item">
                 <span *ngIf="item.type == 'dir'"><i class="fa fa-folder"></i></span>
                 <span *ngIf="item.type == 'file'" class="badge badge-primary">四</span>
                 {{item.name}}
+                <a *ngIf="item.type == 'file'" href="javascript:void(0);" (click)="copyUrl($event, item);"
+                  title="URLをコピー" class="float-right text-info">
+                  <i class="fa fa-copy"></i>
+                </a>
               </a>
             </div>
             <div *ngIf="!items.length" class="alert alert-warning">

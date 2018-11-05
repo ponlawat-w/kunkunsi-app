@@ -19,6 +19,7 @@ import { DescriptionComponent } from './components/description/description.compo
 import { AdditionalLyricsComponent } from './components/additional-lyrics/additional-lyrics.component';
 import { GithubImporterComponent } from './components/github-importer/github-importer.component';
 import { ToRubyPipe } from './pipes/to-ruby.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ToRubyPipe } from './pipes/to-ruby.pipe';
     DescriptionComponent,
     AdditionalLyricsComponent,
     GithubImporterComponent,
-    ToRubyPipe
+    ToRubyPipe,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
