@@ -78,7 +78,8 @@ export class GithubImporterComponent implements OnInit {
   }
 
   public copyUrl(event: Event, item: FileItem) {
-    const url = `${location.href}github/${this.username}/${this.repositoryName}/master/${item.path}`;
+    const path = item.path.split('/').map(x => encodeURI(x)).join('/');
+    const url = `${location.href}github/${this.username}/${this.repositoryName}/master/${path}`;
     document.addEventListener('copy', (clipboardEvent: ClipboardEvent) => {
       clipboardEvent.clipboardData.setData('text/plain', url);
       clipboardEvent.preventDefault();
