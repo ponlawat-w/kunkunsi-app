@@ -9,7 +9,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DescriptionComponent implements OnInit {
 
-  @ViewChild('editDescription') modalElement;
+  @ViewChild('editDescription', {static: true}) modalElement;
 
   public description: string;
   public modalRef: NgbModalRef;

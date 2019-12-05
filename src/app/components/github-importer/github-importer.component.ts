@@ -12,9 +12,9 @@ import { EditorService } from '../../services/editor.service';
 })
 export class GithubImporterComponent implements OnInit {
 
-  @ViewChild('githubDialog') modalElement;
+  @ViewChild('githubDialog', {static: true}) modalElement;
   public modalRef: NgbModalRef;
-  @Input('emitter') emitter: EventEmitter<null>;
+  @Input() emitter: EventEmitter<null>;
 
   public githubSettings: {username: string, repository: string} = {username: '', repository: ''};
   public username: string;

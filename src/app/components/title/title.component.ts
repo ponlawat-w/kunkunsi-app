@@ -10,7 +10,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TitleComponent implements OnInit {
 
-  @ViewChild('editDialog') modalElement;
+  @ViewChild('editDialog', {static: true}) modalElement;
   public modalRef: NgbModalRef;
 
   public newTitle: string;

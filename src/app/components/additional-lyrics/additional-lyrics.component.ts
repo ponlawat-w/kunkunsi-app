@@ -10,7 +10,7 @@ import { AppService } from '../../services/app.service';
 })
 export class AdditionalLyricsComponent implements OnInit {
 
-  @ViewChild('lyricsDialog') modalElement;
+  @ViewChild('lyricsDialog', {static: true}) modalElement;
   public modalRef: NgbModalRef;
   public additionalLyrics: string;
 
